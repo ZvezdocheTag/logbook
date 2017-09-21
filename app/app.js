@@ -17,7 +17,7 @@ import { syncHistoryWithStore } from 'react-router-redux';
 import FontFaceObserver from 'fontfaceobserver';
 import { useScroll } from 'react-router-scroll';
 import 'sanitize.css/sanitize.css';
-import './app.css';
+import './app.scss';
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
