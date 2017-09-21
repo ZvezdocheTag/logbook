@@ -17,6 +17,9 @@ import { syncHistoryWithStore } from 'react-router-redux';
 import FontFaceObserver from 'fontfaceobserver';
 import { useScroll } from 'react-router-scroll';
 import 'sanitize.css/sanitize.css';
+import './app.css';
+
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 // Import root app
 import App from 'containers/App';
@@ -80,6 +83,8 @@ const render = (messages) => {
   ReactDOM.render(
     <Provider store={store}>
       <LanguageProvider messages={messages}>
+        <MuiThemeProvider>
+
         <Router
           history={history}
           routes={rootRoute}
@@ -89,6 +94,7 @@ const render = (messages) => {
             applyRouterMiddleware(useScroll())
           }
         />
+        </MuiThemeProvider>
       </LanguageProvider>
     </Provider>,
     document.getElementById('app')
