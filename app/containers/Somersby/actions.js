@@ -9,8 +9,7 @@ import { v4 } from 'node-uuid'
    */
   export function addTravel(data) {
     return {
-      type: LOAD_REPOS,
+      type: ADD_TRAVEL,
       data: {...data, userId: v4()}
     };
   }
-  

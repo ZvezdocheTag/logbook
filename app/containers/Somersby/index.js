@@ -4,10 +4,7 @@ import PropTypes from 'prop-types'
 import LogbookForm from './LogbookForm'
 import AppBar from 'material-ui/AppBar';
 
-/**
- * A simple example of `AppBar` with an icon on the right.
- * By default, the left icon is a navigation-menu.
- */
+
 const AppBarExampleIcon = () => (
   <AppBar
     title="Title"
@@ -16,13 +13,22 @@ const AppBarExampleIcon = () => (
 );
 
   
-export default class Somersby extends Component {
+class Somersby extends Component {
   render() {
     return (
       <div>
+          <button >Add travel</button>
           <AppBarExampleIcon />
           <LogbookForm />
       </div>
     )
   }
 }
+
+// LocaleToggle.propTypes = {
+//   onLocaleToggle: React.PropTypes.func,
+//   locale: React.PropTypes.string,
+// };
+
+
+export default Somersby;

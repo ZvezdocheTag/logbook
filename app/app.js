@@ -19,6 +19,7 @@ import { useScroll } from 'react-router-scroll';
 import 'sanitize.css/sanitize.css';
 import './app.scss';
 
+// import material design them
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 // Import root app

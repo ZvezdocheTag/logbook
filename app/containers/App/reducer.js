@@ -10,7 +10,7 @@
  *   return state.set('yourStateVariable', true);
  */
 
-import { fromJS } from 'immutable';
+import { fromJS, List } from 'immutable';
 
 import {
   LOAD_REPOS_SUCCESS,
@@ -23,6 +23,13 @@ const initialState = fromJS({
   loading: false,
   error: false,
   currentUser: false,
+  supatrupe: [1,2,3,4],
+  that: {
+    1: false,
+    2: "string",
+    3: 32,
+    "arr": [1,2,3,4,5, {"ah": 21}]
+  },
   userData: {
     repositories: false,
   },

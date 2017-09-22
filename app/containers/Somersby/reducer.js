@@ -1,38 +1,31 @@
-import { fromJS } from 'immutable';
+import { fromJS, List } from 'immutable';
 import {
   ADD_TRAVEL,
 } from './constants';
 
 // The initial state of the App
 const initialState = fromJS({
-  currentAddedTravels: {
+  "currentAddedTravels": {
     userId: null,
     title: '',
     description: '',
     image: ''
   },
-  userTravels: [],
+  supo: '',
+  userTravels: List(),
+  anotherTravel: []
 });
 
-function appReducer(state = initialState, action) {
+function appTravelsReducer(state = initialState, action) {
   switch (action.type) {
-    case LOAD_REPOS:
-      return state
-        .set('loading', true)
-        .set('error', false)
-        .setIn(['userData', 'repositories'], false);
-    case LOAD_REPOS_SUCCESS:
-      return state
-        .setIn(['userData', 'repositories'], action.repos)
-        .set('loading', false)
-        .set('currentUser', action.username);
-    case LOAD_REPOS_ERROR:
-      return state
-        .set('error', action.error)
-        .set('loading', false);
+    case ADD_TRAVEL:
+      return state.updateIn(['userTravels'], 
+        list => list.push(action.data))
+    // case ADD_TRAVEL:
+    //   return state.set('currentAddedTravels', action.data)
     default:
       return state;
   }
 }
 
-export default appReducer;
+export default appTravelsReducer;

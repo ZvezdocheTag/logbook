@@ -35,6 +35,7 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
 
   render() {
     const { loading, error, repos } = this.props;
+    console.log(this.props, repos, "BU")
     const reposListProps = {
       loading,
       error,
@@ -110,12 +111,15 @@ export function mapDispatchToProps(dispatch) {
   };
 }
 
-const mapStateToProps = createStructuredSelector({
-  repos: makeSelectRepos(),
-  username: makeSelectUsername(),
-  loading: makeSelectLoading(),
-  error: makeSelectError(),
-});
+const mapStateToProps = function() {
+  // console.log(makeSelectRepos())
+  return createStructuredSelector({
+    repos: makeSelectRepos(),
+    username: makeSelectUsername(),
+    loading: makeSelectLoading(),
+    error: makeSelectError(),
+  })
+};
 
 // Wrap the component to inject dispatch and state into it
 export default connect(mapStateToProps, mapDispatchToProps)(HomePage);

@@ -1,6 +1,16 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
+import { addTravel } from './actions'
+import { connect } from 'react-redux';
+import { 
+    makeSelectUsername, 
+    makeSelectLogbooks,
+    makeSelectLogbooksItem } from './selectors'
+import { createStructuredSelector } from 'reselect';
+import '!file-loader?name=[name].[ext]&outputPath=images/!./img/1.jpg';
+import imS from './img/1.jpg';
+
 
 const LogbookItem = ({ img, title, text }) => (
     <div className="logbook-item">
@@ -16,6 +26,10 @@ const LogbookItem = ({ img, title, text }) => (
     </div>
 )
 
+const styl = {
+    border: '1px solid red'
+}
+
 class UserLogbook extends Component {
     render() {
         return (
@@ -25,31 +39,120 @@ class UserLogbook extends Component {
         )
     }
 }
-export default class LogbookForm extends Component {
-  static propTypes = {
-    prop: PropTypes
-  }
+class LogbookForm extends Component {
+    constructor() {
+        super();
+        this.state = {
+            file: '',
+            imagePreviewUrl: '',
+            result: []
+        }
+    }
+    readerRes(file) {
+        let reader = new FileReader();
 
+        reader.onloadend = () => {
+            this.setState({
+              file: file,
+              imagePreviewUrl: reader.result,
+              result: [...this.state.result, reader.result ]
+            });
+        }
+      
+        reader.readAsDataURL(file)
+
+    }
+
+    addTravelFUnc(e) {
+        e.preventDefault();
+        
+        const { addTravel, selectorsLogbook } = this.props;
+        let data = {
+            name: this.name.value,
+            description: this.description.value,
+            img: this.img.files[0].name
+          }
+          
+          
+          this.readerRes(this.img.files[0])
+
+
+        addTravel(data)
+      }
   render() {
+    let { logbooks } = this.props;
+    let {imagePreviewUrl} = this.state;
+    console.log()
     return (
-        <form action="" className="logbook">
-            <div className="logbook__field logbook__field--title">
-                <label htmlFor="travel-name" className="logbook__label">Title</label>
-                <input name="travel-name" className="logbook__input" />
+        <div>
+           <form action="" className="logbook-form">
+            <div className="logbook-form__field logbook-form__field--title">
+                <label htmlFor="travel-name" className="logbook-form__label">Title</label>
+                <input 
+                    name="travel-name" 
+                    style={styl} 
+                    className="logbook-form__input"
+                    ref={name => this.name = name}
+                 />
             </div>
-            <div className="logbook__field logbook__field--description">
-                <label htmlFor="travel-description" className="logbook__label">Description</label>
-                <textarea name="travel-description" className="logbook__input" />
+            <div className="logbook-form__field logbook-form__field--description">
+                <label htmlFor="travel-description" className="logbook-form__label">Description</label>
+                <textarea 
+                name="travel-description" 
+                style={styl} 
+                className="logbook-form__input" 
+                ref={description => this.description = description}
+                />
             </div>
-            <div className="logbook__field logbook__field--picture">
-                <button className="logbook__download-img">download image
+            <div className="logbook-form__field logbook-form__field--picture">
+                <button className="logbook-form__download-img">download image
 
                 </button>
-                <div className="logbook__images">
+                <input type="file" name="" id="" ref={img => this.img = img}/>
+                <div className="logbook-form__images">
                     <img src="" alt=""/>
                 </div>
             </div>
+            <button className="logbook-form__submit" onClick={this.addTravelFUnc.bind(this)}>Submit</button>
         </form>
+        <ul>
+            {
+                logbooks.size !== 0 ?
+                logbooks.map((item, i) => (
+                   <li key={i} className="logbook">
+                       <div className="logbook__name">
+                           {item.name}
+                       </div>
+                       <div className="logbook__description">
+                           {item.description}
+                       </div>
+                       <div className="logbook__avatar">
+                           <img src={this.state.result.length ? this.state.result[i] : ''} alt=""/>
+                       </div>
+                   </li>
+                )) : <li> NO repos </li>
+            }
+        </ul>
+        </div>
     )
   }
 }
+
+function mapStateToProps(state) {
+    return createStructuredSelector({
+      userTravel: makeSelectUsername(),
+      logbooks: makeSelectLogbooks(),
+    })
+  }
+  
+  function mapDispatchToProps(dispatch) {
+    return {
+      addTravel: (data) => dispatch(addTravel(data)),
+      dispatch,
+    };
+  }
+  
+  export default connect(mapStateToProps, mapDispatchToProps)(LogbookForm);
+  
+
+

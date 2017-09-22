@@ -3,12 +3,20 @@
  */
 
 import { createSelector } from 'reselect';
+// import { isKeyed, Map, List,isIndexed, Stack } from 'immutable';
 
-const selectGlobal = (state) => state.get('global');
+const selectGlobal = (state) => {
+  const that = state.get('global').get("that");
+  console.log(that, "ST G" )
+  return state.get('global')
+};
 
 const makeSelectCurrentUser = () => createSelector(
   selectGlobal,
-  (globalState) => globalState.get('currentUser')
+  (globalState) => {
+    // console.log(globalState, "GLOBAL STATE", globalState.get('currentUser'))
+    return globalState.get('currentUser')
+  }
 );
 
 const makeSelectLoading = () => createSelector(
@@ -41,6 +49,10 @@ const makeSelectLocationState = () => {
     return prevRoutingStateJS;
   };
 };
+
+const makeSelectTravels = () => {
+
+}
 
 export {
   selectGlobal,

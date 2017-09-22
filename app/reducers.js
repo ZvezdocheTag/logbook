@@ -9,7 +9,8 @@ import { LOCATION_CHANGE } from 'react-router-redux';
 
 import globalReducer from 'containers/App/reducer';
 import languageProviderReducer from 'containers/LanguageProvider/reducer';
-
+import appTravelsReducer from 'containers/Somersby/reducer';
+ 
 /*
  * routeReducer
  *
@@ -45,6 +46,7 @@ export default function createReducer(asyncReducers) {
   return combineReducers({
     route: routeReducer,
     global: globalReducer,
+    travel: appTravelsReducer,
     language: languageProviderReducer,
     ...asyncReducers,
   });
