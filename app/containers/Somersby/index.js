@@ -17,13 +17,14 @@ class Somersby extends Component {
   render() {
     return (
       <div>
-          <button >Add travel</button>
-          <AppBarExampleIcon />
+          {/* <AppBarExampleIcon /> */}
           <LogbookForm />
+
       </div>
     )
   }
 }
+
 
 // LocaleToggle.propTypes = {
 //   onLocaleToggle: React.PropTypes.func,

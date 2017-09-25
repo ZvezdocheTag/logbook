@@ -55,6 +55,38 @@ export default function createRoutes(store) {
           .catch(errorLoading);
       },
     }, {
+      path: '/logbook',
+      name: 'logbook',
+      getComponent(nextState, cb) {
+        import('containers/Logbook')
+          .then(loadModule(cb))
+          .catch(errorLoading);
+      },
+    },{
+      path: '/travel/:id',
+      name: 'travel',
+      getComponent(nextState, cb) {
+        import('containers/Travel')
+          .then(loadModule(cb))
+          .catch(errorLoading);
+      },
+    },{
+      path: '/travels',
+      name: 'travels',
+      getComponent(nextState, cb) {
+        import('containers/Travels')
+          .then(loadModule(cb))
+          .catch(errorLoading);
+      },
+    },{
+      path: '/post/:id',
+      name: 'post',
+      getComponent(nextState, cb) {
+        import('containers/Post')
+          .then(loadModule(cb))
+          .catch(errorLoading);
+      },
+    },{
       path: '*',
       name: 'notfound',
       getComponent(nextState, cb) {
@@ -65,3 +97,5 @@ export default function createRoutes(store) {
     },
   ];
 }
+
+

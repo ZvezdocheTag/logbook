@@ -9,7 +9,7 @@ import { LOCATION_CHANGE } from 'react-router-redux';
 
 import globalReducer from 'containers/App/reducer';
 import languageProviderReducer from 'containers/LanguageProvider/reducer';
-import appTravelsReducer from 'containers/Somersby/reducer';
+import appTravelsReducer from 'containers/Somersby/logic/reducer';
  
 /*
  * routeReducer

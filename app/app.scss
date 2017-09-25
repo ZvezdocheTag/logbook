@@ -1,4 +1,20 @@
 body {
     // color: red;
 }
+.logbook-form {
+    width: 50%;
+}
+.logbook-form__label,
+.logbook-form__input {
+    width: 100%;
+}
 
+.logbook-form__input {
+    height: 40px;
+}
+.logbook-form__input[name="travel-description"] {
+    height: 102px;
+}
+.logbook-form__field {
+    margin-bottom: 20px;
+}

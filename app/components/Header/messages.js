@@ -18,4 +18,12 @@ export default defineMessages({
     id: 'boilerplate.components.Header.somersby',
     defaultMessage: 'somersby',
   },
+  logbook: {
+    id: 'boilerplate.components.Header.logbook',
+    defaultMessage: 'logbook',
+  },
+  travel: {
+    id: 'boilerplate.components.Header.travel',
+    defaultMessage: 'travel',
+  },
 });

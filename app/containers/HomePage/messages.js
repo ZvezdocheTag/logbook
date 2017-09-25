@@ -8,7 +8,7 @@ import { defineMessages } from 'react-intl';
 export default defineMessages({
   startProjectHeader: {
     id: 'boilerplate.containers.HomePage.start_project.header',
-    defaultMessage: 'Start your next react project in seconds',
+    defaultMessage: 'Latest post from travels',
   },
   startProjectMessage: {
     id: 'boilerplate.containers.HomePage.start_project.message',
@@ -16,7 +16,7 @@ export default defineMessages({
   },
   trymeHeader: {
     id: 'boilerplate.containers.HomePage.tryme.header',
-    defaultMessage: 'Try me!',
+    defaultMessage: 'Try Latest post from travels!',
   },
   trymeMessage: {
     id: 'boilerplate.containers.HomePage.tryme.message',

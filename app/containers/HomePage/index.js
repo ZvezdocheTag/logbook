@@ -13,7 +13,10 @@ import { createStructuredSelector } from 'reselect';
 import { makeSelectRepos, makeSelectLoading, makeSelectError } from 'containers/App/selectors';
 import H2 from 'components/H2';
 import ReposList from 'components/ReposList';
+import MaterialCard from 'components/MaterialCard';
+import List from 'components/List';
 import AtPrefix from './AtPrefix';
+
 import CenteredSection from './CenteredSection';
 import Form from './Form';
 import Input from './Input';
@@ -53,16 +56,14 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
         <div>
           <CenteredSection>
             <H2>
-              <FormattedMessage {...messages.startProjectHeader} />
+              Latest posts
             </H2>
-            <p>
-              <FormattedMessage {...messages.startProjectMessage} />
-            </p>
           </CenteredSection>
           <Section>
-            <H2>
-              <FormattedMessage {...messages.trymeHeader} />
-            </H2>
+            <div>
+
+            <List component={MaterialCard}></List>
+            </div>
             <Form onSubmit={this.props.onSubmitForm}>
               <label htmlFor="username">
                 <FormattedMessage {...messages.trymeMessage} />

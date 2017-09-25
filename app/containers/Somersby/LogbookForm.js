@@ -1,16 +1,16 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-
-import { addTravel } from './actions'
+import { Link } from 'react-router';
+import { addTravel } from './logic/actions'
 import { connect } from 'react-redux';
 import { 
     makeSelectUsername, 
     makeSelectLogbooks,
-    makeSelectLogbooksItem } from './selectors'
+    makeSelectLogbooksItem } from './logic/selectors'
 import { createStructuredSelector } from 'reselect';
 import '!file-loader?name=[name].[ext]&outputPath=images/!./img/1.jpg';
 import imS from './img/1.jpg';
-
+import RaisedButton from 'material-ui/RaisedButton';
 
 const LogbookItem = ({ img, title, text }) => (
     <div className="logbook-item">
@@ -82,7 +82,7 @@ class LogbookForm extends Component {
   render() {
     let { logbooks } = this.props;
     let {imagePreviewUrl} = this.state;
-    console.log()
+    console.log(logbooks)
     return (
         <div>
            <form action="" className="logbook-form">
@@ -113,7 +113,14 @@ class LogbookForm extends Component {
                     <img src="" alt=""/>
                 </div>
             </div>
-            <button className="logbook-form__submit" onClick={this.addTravelFUnc.bind(this)}>Submit</button>
+            <RaisedButton 
+            className="logbook-form__submit" 
+            label="Submit" 
+            primary={true} 
+            onClick={this.addTravelFUnc.bind(this)}>
+            
+            </RaisedButton >
+
         </form>
         <ul>
             {
@@ -121,7 +128,10 @@ class LogbookForm extends Component {
                 logbooks.map((item, i) => (
                    <li key={i} className="logbook">
                        <div className="logbook__name">
-                           {item.name}
+                            <Link to={`/travel/${item.name}`}>
+                                {item.name}
+                            </Link>
+                           
                        </div>
                        <div className="logbook__description">
                            {item.description}
