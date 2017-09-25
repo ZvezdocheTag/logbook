@@ -6,7 +6,7 @@ import { FormattedNumber } from 'react-intl';
 
 class Post extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   render() {
-      console.log(this.props)
+    //   console.log(this.props)
     return (
         <div>
             <h2>{`da`}</h2>

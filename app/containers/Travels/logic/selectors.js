@@ -18,6 +18,7 @@ const makeSelectLogbooks = () => {
 return createSelector(
   selectHome,
   (homeState) => {
+    console.log(homeState)
     return homeState.get('userTravels')
   }
 )};

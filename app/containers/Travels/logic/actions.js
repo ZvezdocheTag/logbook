@@ -17,6 +17,10 @@ import {
 import axios from 'axios';
 import { v4 } from 'node-uuid'
 
+import { 
+  getTravels,
+  sendTravel
+} from '../../../api'
   /**
    * Load the repositories, this action starts the request saga
    *
@@ -29,18 +33,15 @@ import { v4 } from 'node-uuid'
     };
   }
 
-  const ROOT_URL = location.href.indexOf('localhost') > 0 ? 'http://localhost:3000/api' : '/api';
-  export function fetchTravels() {
-    const request = axios({
-      method: 'get',
-      url: `${ROOT_URL}/travels`,
-      headers: []
-    });
+  // when i was dispatch this action I should past in payload my fake api promise
+
+  export function fetchTravels(id) {
   
-    return {
-      type: FETCH_TRAVELS,
-      payload: request
-    };
+      return {
+        type: FETCH_TRAVELS,
+        payload: getTravels(id)
+      };
+    
   }
       
   export function fetchTravelsSuccess(travels) {
@@ -59,8 +60,6 @@ import { v4 } from 'node-uuid'
   
   export function validateTravelFields(props) {
     //note: we cant have /travels/validateFields because it'll match /travels/:id path!
-    const request = axios.post(`${ROOT_URL}/travels/validate/fields`, props);
-  
     return {
       type: VALIDATE_TRAVEL_FIELDS,
       payload: request
@@ -80,20 +79,10 @@ import { v4 } from 'node-uuid'
     };
   }
   
-  
-  export function createTravel(props, tokenFromStorage) {
-    const request = axios({
-      method: 'post',
-      data: props,
-      url: `${ROOT_URL}/travels`,
-      headers: {
-        'Authorization': `Bearer ${tokenFromStorage}`
-      }
-    });
-  
+  export function createTravel(props) {
     return {
       type: CREATE_TRAVEL,
-      payload: request
+      payload: sendTravel(props)
     };
   }
   
@@ -119,7 +108,6 @@ import { v4 } from 'node-uuid'
       payload: request
     };
   }
-  
   
   export function fetchTravelSuccess(activeTravel) {
     return {

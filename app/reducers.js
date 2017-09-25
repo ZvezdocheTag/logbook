@@ -9,7 +9,7 @@ import { LOCATION_CHANGE } from 'react-router-redux';
 
 import globalReducer from 'containers/App/reducer';
 import languageProviderReducer from 'containers/LanguageProvider/reducer';
-import appTravelsReducer from 'containers/Somersby/logic/reducer';
+import appTravelsReducer from 'containers/Travels/logic/reducer';
  
 /*
  * routeReducer
@@ -23,7 +23,6 @@ import appTravelsReducer from 'containers/Somersby/logic/reducer';
 const routeInitialState = fromJS({
   locationBeforeTransitions: null,
 });
-
 /**
  * Merge route into the global application state
  */

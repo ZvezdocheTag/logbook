@@ -1,16 +1,26 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router';
-import { addTravel } from './logic/actions'
+import { 
+    addTravel, 
+    fetchTravels,
+    createTravel } from './logic/actions'
 import { connect } from 'react-redux';
+
 import { 
     makeSelectUsername, 
     makeSelectLogbooks,
-    makeSelectLogbooksItem } from './logic/selectors'
-import { createStructuredSelector } from 'reselect';
-import '!file-loader?name=[name].[ext]&outputPath=images/!./img/1.jpg';
-import imS from './img/1.jpg';
+    makeSelectLogbooksItem 
+} from './logic/selectors'
+
+import { 
+    createStructuredSelector 
+} from 'reselect';
+
 import RaisedButton from 'material-ui/RaisedButton';
+
+
+
 
 const LogbookItem = ({ img, title, text }) => (
     <div className="logbook-item">
@@ -40,51 +50,51 @@ class UserLogbook extends Component {
     }
 }
 class LogbookForm extends Component {
-    constructor() {
-        super();
-        this.state = {
-            file: '',
-            imagePreviewUrl: '',
-            result: []
-        }
-    }
-    readerRes(file) {
-        let reader = new FileReader();
+    readerRes() {
+        const reader = new FileReader();
+        const { 
+            addTravel, 
+            selectorsLogbook,
+            createTravel
+        } = this.props;
 
         reader.onloadend = () => {
-            this.setState({
-              file: file,
-              imagePreviewUrl: reader.result,
-              result: [...this.state.result, reader.result ]
-            });
+            let data = {
+                name: this.name.value,
+                description: this.description.value,
+                img: reader.result
+            }
+            // console.log(data)
+            addTravel(data)
+            createTravel(data).payload.then(res => {
+                console.log(res)
+            })
         }
-      
-        reader.readAsDataURL(file)
 
+      
+        reader.readAsDataURL(this.img.files[0])
+
+    }
+
+    componentDidMount() {
+        let { fetchTravels, dispatch } = this.props;
+
+        // console.log(fetchTravels('all'))
     }
 
     addTravelFUnc(e) {
         e.preventDefault();
-        
-        const { addTravel, selectorsLogbook } = this.props;
-        let data = {
-            name: this.name.value,
-            description: this.description.value,
-            img: this.img.files[0].name
-          }
-          
-          
-          this.readerRes(this.img.files[0])
+
+        this.readerRes()
 
 
-        addTravel(data)
-      }
+    }
+
   render() {
     let { logbooks } = this.props;
-    let {imagePreviewUrl} = this.state;
-    console.log(logbooks)
+
     return (
-        <div>
+        <div className="box">
            <form action="" className="logbook-form">
             <div className="logbook-form__field logbook-form__field--title">
                 <label htmlFor="travel-name" className="logbook-form__label">Title</label>
@@ -105,20 +115,17 @@ class LogbookForm extends Component {
                 />
             </div>
             <div className="logbook-form__field logbook-form__field--picture">
-                <button className="logbook-form__download-img">download image
-
-                </button>
                 <input type="file" name="" id="" ref={img => this.img = img}/>
                 <div className="logbook-form__images">
                     <img src="" alt=""/>
                 </div>
             </div>
             <RaisedButton 
-            className="logbook-form__submit" 
-            label="Submit" 
-            primary={true} 
-            onClick={this.addTravelFUnc.bind(this)}>
-            
+                className="logbook-form__submit" 
+                label="Submit" 
+                primary={true} 
+                onClick={this.addTravelFUnc.bind(this)}
+            >
             </RaisedButton >
 
         </form>
@@ -126,21 +133,23 @@ class LogbookForm extends Component {
             {
                 logbooks.size !== 0 ?
                 logbooks.map((item, i) => (
-                   <li key={i} className="logbook">
-                       <div className="logbook__name">
+                   <li key={i} className="travel-item">
+                       <div className="travel-item__name">
                             <Link to={`/travel/${item.name}`}>
                                 {item.name}
-                            </Link>
-                           
+                            </Link>     
                        </div>
-                       <div className="logbook__description">
+                       <div className="travel-item__description">
                            {item.description}
                        </div>
-                       <div className="logbook__avatar">
-                           <img src={this.state.result.length ? this.state.result[i] : ''} alt=""/>
+                       <div className="travel-item__avatar">
+                           <img src={item.img} 
+                               alt=""
+                            />
                        </div>
                    </li>
-                )) : <li> NO repos </li>
+                )) : 
+                <li> NO repos </li>
             }
         </ul>
         </div>
@@ -157,7 +166,9 @@ function mapStateToProps(state) {
   
   function mapDispatchToProps(dispatch) {
     return {
-      addTravel: (data) => dispatch(addTravel(data)),
+      addTravel: (id) => dispatch(addTravel(id)),
+      createTravel: (id) => dispatch(createTravel(id)),
+      fetchTravels,
       dispatch,
     };
   }

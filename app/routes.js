@@ -46,14 +46,6 @@ export default function createRoutes(store) {
           .then(loadModule(cb))
           .catch(errorLoading);
       },
-    },{
-      path: '/somersby',
-      name: 'somersby',
-      getComponent(nextState, cb) {
-        import('containers/Somersby')
-          .then(loadModule(cb))
-          .catch(errorLoading);
-      },
     }, {
       path: '/logbook',
       name: 'logbook',

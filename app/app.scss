@@ -18,3 +18,21 @@ body {
 .logbook-form__field {
     margin-bottom: 20px;
 }
+.box {
+    display: flex;
+}
+
+.box > * {
+    flex: 1;
+}
+.logbook__avatar {
+    width: 100%;
+}
+img {
+    max-width: 100%;
+}
+
+.travel-item {
+    list-style: none;
+    margin-bottom: 30px;
+}
