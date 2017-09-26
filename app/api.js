@@ -63,7 +63,7 @@ export const getTravel = (travelID) => {
 }
 
 export const getTravels = (id) => {
-    return delay(5500).then(() => {
+    return delay(500).then(() => {
         if(typeof id === "undefined" || id === null) {
             throw new Error(`Unknow user `)
         } else if(id === "all") {
