@@ -16,48 +16,64 @@
  */
 
 import {
-  LOAD_REPOS,
-  LOAD_REPOS_SUCCESS,
-  LOAD_REPOS_ERROR,
+  FETCH_POSTS,
+  FETCH_POSTS_SUCCESS,
+  FETCH_POSTS_FAILURE,
+  FETCH_TRAVELS,
+  FETCH_TRAVELS_SUCCESS,
+  FETCH_TRAVELS_FAILURE,
 } from './constants';
 
-/**
- * Load the repositories, this action starts the request saga
- *
- * @return {object} An action object with a type of LOAD_REPOS
+import { 
+  getTravels
+} from '../../api'
+
+/*
+ * Actions describe changes of state in your application
  */
-export function loadRepos() {
+
+// We import constants to name our actions' type
+export function fetchTravels(filter) {
   return {
-    type: LOAD_REPOS,
+    type: FETCH_TRAVELS,
+    request: getTravels(filter)
+  };
+}
+  
+export function fetchTravelsSuccess(travels) {
+console.log("SU")
+return {
+  type: FETCH_TRAVELS_SUCCESS,
+  payload: travels
+};
+}
+
+export function fetchTravelsFailure(error) {
+console.log("ER")
+return {
+  type: FETCH_TRAVELS_FAILURE,
+  payload: error
+};
+}
+
+
+export function fetchPosts() {
+  return {
+    type: FETCH_POSTS,
+    payload: request
+  };
+}
+    
+export function fetchPostsSuccess(posts) {
+  return {
+    type: FETCH_POSTS_SUCCESS,
+    payload: posts
   };
 }
 
-/**
- * Dispatched when the repositories are loaded by the request saga
- *
- * @param  {array} repos The repository data
- * @param  {string} username The current username
- *
- * @return {object}      An action object with a type of LOAD_REPOS_SUCCESS passing the repos
- */
-export function reposLoaded(repos, username) {
+export function fetchPostsFailure(error) {
   return {
-    type: LOAD_REPOS_SUCCESS,
-    repos,
-    username,
-  };
-}
-
-/**
- * Dispatched when loading the repositories fails
- *
- * @param  {object} error The error
- *
- * @return {object}       An action object with a type of LOAD_REPOS_ERROR passing the error
- */
-export function repoLoadingError(error) {
-  return {
-    type: LOAD_REPOS_ERROR,
-    error,
+    type: FETCH_POSTS_FAILURE,
+    payload: error
   };
 }

@@ -1,8 +1,5 @@
 import {
     ADD_TRAVEL,
-    FETCH_POSTS,
-    FETCH_POSTS_SUCCESS,
-    FETCH_POSTS_FAILURE,
     FETCH_POST,
     FETCH_POST_SUCCESS,
     FETCH_POST_FAILURE,
@@ -15,34 +12,6 @@ import {
 } from './constants';
 import axios from 'axios';
 import { v4 } from 'node-uuid'
-
-const ROOT_URL = location.href.indexOf('localhost') > 0 ? 'http://localhost:3000/api' : '/api';
-export function fetchPosts() {
-  const request = axios({
-    method: 'get',
-    url: `${ROOT_URL}/posts`,
-    headers: []
-  });
-
-  return {
-    type: FETCH_POSTS,
-    payload: request
-  };
-}
-    
-export function fetchPostsSuccess(posts) {
-  return {
-    type: FETCH_POSTS_SUCCESS,
-    payload: posts
-  };
-}
-
-export function fetchPostsFailure(error) {
-  return {
-    type: FETCH_POSTS_FAILURE,
-    payload: error
-  };
-}
 
 export function validatePostFields(props) {
   //note: we cant have /posts/validateFields because it'll match /posts/:id path!

@@ -1,12 +1,43 @@
 import { v4 } from 'node-uuid'
 
+const usersID = {
+    "a1": {
+        name: "John"
+    },
+    "a2": {
+        name: "Don"
+    }
+}
+
 const fakeDatabase = {
     travels: [
         {
             id: v4(),
-            name: "DORA",
+            name: "Gaiti tour",
             description: "pomidaor",
-            img: ''
+            img: '',
+            userId: "a1"
+        },
+        {
+            id: v4(),
+            name: "Bora bora rodeo",
+            description: "pomidaor",
+            img: '',
+            userId: "a2"
+        },
+        {
+            id: v4(),
+            name: "Gibraaltar banans",
+            description: "pomidaor",
+            img: '',
+            userId: "a1"
+        },
+        {
+            id: v4(),
+            name: "Suhili mocki",
+            description: "pomidaor",
+            img: '',
+            userId: "a2"
         }
     ],
     posts: []

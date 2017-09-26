@@ -4,7 +4,7 @@ const Ul = styled.ul`
   list-style: none;
   margin: 0;
   width: 100%;
-  padding: 40px;
+  padding: 0px;
   
 `;
 

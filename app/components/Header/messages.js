@@ -10,10 +10,6 @@ export default defineMessages({
     id: 'boilerplate.components.Header.home',
     defaultMessage: 'Home',
   },
-  features: {
-    id: 'boilerplate.components.Header.features',
-    defaultMessage: 'Features',
-  },
   somersby: {
     id: 'boilerplate.components.Header.somersby',
     defaultMessage: 'somersby',

@@ -5,33 +5,32 @@
 import { createSelector } from 'reselect';
 // import { isKeyed, Map, List,isIndexed, Stack } from 'immutable';
 
-const selectGlobal = (state) => {
-  const that = state.get('global').get("that");
-  console.log(that, "ST G" )
-  return state.get('global')
-};
+const selectGlobal = (state) => state;
 
 const makeSelectCurrentUser = () => createSelector(
   selectGlobal,
   (globalState) => {
     // console.log(globalState, "GLOBAL STATE", globalState.get('currentUser'))
-    return globalState.get('currentUser')
+    return globalState.currentUser
   }
 );
 
 const makeSelectLoading = () => createSelector(
   selectGlobal,
-  (globalState) => globalState.get('loading')
+  (globalState) => globalState.loading
 );
 
 const makeSelectError = () => createSelector(
   selectGlobal,
-  (globalState) => globalState.get('error')
+  (globalState) => globalState.error
 );
 
-const makeSelectRepos = () => createSelector(
+const makeSelectTravels = () => createSelector(
   selectGlobal,
-  (globalState) => globalState.getIn(['userData', 'repositories'])
+  (globalState) => {
+    // console.log(globalState.get("travel"),globalState, "GLOB")
+    return globalState.get("global")
+  }
 );
 
 const makeSelectLocationState = () => {
@@ -50,15 +49,11 @@ const makeSelectLocationState = () => {
   };
 };
 
-const makeSelectTravels = () => {
-
-}
-
 export {
   selectGlobal,
   makeSelectCurrentUser,
   makeSelectLoading,
   makeSelectError,
-  makeSelectRepos,
   makeSelectLocationState,
+  makeSelectTravels
 };

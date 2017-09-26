@@ -22,9 +22,9 @@ export default function createRoutes(store) {
       name: 'home',
       getComponent(nextState, cb) {
         const importModules = Promise.all([
-          import('containers/HomePage/reducer'),
-          import('containers/HomePage/sagas'),
-          import('containers/HomePage'),
+          import('containers/HomePage/logic/reducer'),
+          import('containers/HomePage/logic/sagas'),
+          import('containers/HomePage/'),
         ]);
 
         const renderRoute = loadModule(cb);
@@ -39,14 +39,6 @@ export default function createRoutes(store) {
         importModules.catch(errorLoading);
       },
     }, {
-      path: '/features',
-      name: 'features',
-      getComponent(nextState, cb) {
-        import('containers/FeaturePage')
-          .then(loadModule(cb))
-          .catch(errorLoading);
-      },
-    }, {
       path: '/logbook',
       name: 'logbook',
       getComponent(nextState, cb) {
@@ -59,14 +51,6 @@ export default function createRoutes(store) {
       name: 'travel',
       getComponent(nextState, cb) {
         import('containers/Travel')
-          .then(loadModule(cb))
-          .catch(errorLoading);
-      },
-    },{
-      path: '/travels',
-      name: 'travels',
-      getComponent(nextState, cb) {
-        import('containers/Travels')
           .then(loadModule(cb))
           .catch(errorLoading);
       },

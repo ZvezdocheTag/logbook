@@ -28,9 +28,6 @@ import App from 'containers/App';
 // Import selector for `syncHistoryWithStore`
 import { makeSelectLocationState } from 'containers/App/selectors';
 
-// Import Language Provider
-import LanguageProvider from 'containers/LanguageProvider';
-
 // Load the favicon, the manifest.json file and the .htaccess file
 /* eslint-disable import/no-webpack-loader-syntax */
 import '!file-loader?name=[name].[ext]!./favicon.ico';
@@ -85,9 +82,7 @@ const rootRoute = {
 const render = (messages) => {
   ReactDOM.render(
     <Provider store={store}>
-      <LanguageProvider messages={messages}>
         <MuiThemeProvider>
-
         <Router
           history={history}
           routes={rootRoute}
@@ -98,7 +93,6 @@ const render = (messages) => {
           }
         />
         </MuiThemeProvider>
-      </LanguageProvider>
     </Provider>,
     document.getElementById('app')
   );

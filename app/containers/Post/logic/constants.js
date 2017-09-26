@@ -1,11 +1,6 @@
 import axios from 'axios';
 
 //Post list
-export const FETCH_POSTS = 'boilerplate/App/FETCH_POSTS';
-export const FETCH_POSTS_SUCCESS = 'boilerplate/App/FETCH_POSTS_SUCCESS';
-export const FETCH_POSTS_FAILURE = 'boilerplate/App/FETCH_POSTS_FAILURE';
-
-//Post list
 export const FETCH_POST = 'boilerplate/App/FETCH_POST';
 export const FETCH_POST_SUCCESS = 'boilerplate/App/FETCH_POST_SUCCESS';
 export const FETCH_POST_FAILURE = 'boilerplate/App/FETCH_POST_FAILURE';

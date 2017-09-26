@@ -10,41 +10,58 @@ import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
-import { makeSelectRepos, makeSelectLoading, makeSelectError } from 'containers/App/selectors';
+import { 
+  makeSelectLoading, 
+  makeSelectError,
+  makeSelectTravels
+ } from 'containers/App//selectors';
 import H2 from 'components/H2';
-import ReposList from 'components/ReposList';
 import MaterialCard from 'components/MaterialCard';
 import List from 'components/List';
-import AtPrefix from './AtPrefix';
 
-import CenteredSection from './CenteredSection';
-import Form from './Form';
-import Input from './Input';
-import Section from './Section';
-import messages from './messages';
-import { loadRepos } from '../App/actions';
-import { changeUsername } from './actions';
-import { makeSelectUsername } from './selectors';
+import AtPrefix from './decor/AtPrefix';
+import CenteredSection from './decor/CenteredSection';
+import Section from './decor/Section';
+import messages from './decor/messages';
+import { 
+  fetchTravels,
+  fetchTravelsSuccess,
+  fetchTravelsFailure
+} from '../App/actions';
+import { changeUsername } from './logic/actions';
+import { makeSelectUsername } from './logic/selectors';
+import CircularProgress from 'material-ui/CircularProgress';
 
+const CircularProgressExampleSimple = () => (
+  <div>
+    <CircularProgress size={60} thickness={7} />
+  </div>
+);
 export class HomePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   /**
    * when initial state username is not null, submit the form to load repos
    */
+  componentWillMount() {
+    const { fetchTravels } = this.props;
+    
+        console.log(fetchTravels("all"))
+  }
   componentDidMount() {
+
+
     if (this.props.username && this.props.username.trim().length > 0) {
       this.props.onSubmitForm();
     }
   }
 
   render() {
-    const { loading, error, repos } = this.props;
-    console.log(this.props, repos, "BU")
-    const reposListProps = {
-      loading,
-      error,
-      repos,
-    };
-
+    const { travels } = this.props;
+    let condition = travels.travelsList.travel;
+    if(typeof condition === "undefined") {
+      condition = false;
+    } else {
+      condition = travels.travelsList.travel.length
+    }
     return (
       <article>
         <Helmet
@@ -60,26 +77,13 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
             </H2>
           </CenteredSection>
           <Section>
-            <div>
-
-            <List component={MaterialCard}></List>
-            </div>
-            <Form onSubmit={this.props.onSubmitForm}>
-              <label htmlFor="username">
-                <FormattedMessage {...messages.trymeMessage} />
-                <AtPrefix>
-                  <FormattedMessage {...messages.trymeAtPrefix} />
-                </AtPrefix>
-                <Input
-                  id="username"
-                  type="text"
-                  placeholder="mxstbr"
-                  value={this.props.username}
-                  onChange={this.props.onChangeUsername}
-                />
-              </label>
-            </Form>
-            <ReposList {...reposListProps} />
+            {
+              !travels.travelsList.loading && condition ?
+                <List 
+                component={MaterialCard} 
+                items={travels.travelsList.travel}></List> :
+                <CircularProgressExampleSimple />
+            }
           </Section>
         </div>
       </article>
@@ -105,22 +109,29 @@ HomePage.propTypes = {
 export function mapDispatchToProps(dispatch) {
   return {
     onChangeUsername: (evt) => dispatch(changeUsername(evt.target.value)),
-    onSubmitForm: (evt) => {
-      if (evt !== undefined && evt.preventDefault) evt.preventDefault();
-      dispatch(loadRepos());
-    },
+    fetchTravels: (id) => {
+      dispatch(fetchTravels(id))
+      .request
+      .then(
+        res => dispatch(fetchTravelsSuccess(res)),
+        err => dispatch(fetchTravelsFailure(err))
+      )
+    }
   };
 }
 
 const mapStateToProps = function() {
   // console.log(makeSelectRepos())
   return createStructuredSelector({
-    repos: makeSelectRepos(),
     username: makeSelectUsername(),
     loading: makeSelectLoading(),
     error: makeSelectError(),
+    travels: makeSelectTravels()
   })
 };
 
 // Wrap the component to inject dispatch and state into it
-export default connect(mapStateToProps, mapDispatchToProps)(HomePage);
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(HomePage);
