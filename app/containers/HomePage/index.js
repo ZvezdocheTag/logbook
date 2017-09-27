@@ -16,8 +16,6 @@ import {
   makeSelectTravels
  } from 'containers/App//selectors';
 import H2 from 'components/H2';
-import MaterialCard from 'components/MaterialCard';
-import List from 'components/List';
 
 import AtPrefix from './decor/AtPrefix';
 import CenteredSection from './decor/CenteredSection';
@@ -27,24 +25,19 @@ import {
   fetchTravels,
   fetchTravelsSuccess,
   fetchTravelsFailure
-} from '../App/actions';
+} from '../Travel/logic/actions';
 import { changeUsername } from './logic/actions';
 import { makeSelectUsername } from './logic/selectors';
-import CircularProgress from 'material-ui/CircularProgress';
+import TravelsList from '../Travel/TravelsList'
 
-const CircularProgressExampleSimple = () => (
-  <div>
-    <CircularProgress size={60} thickness={7} />
-  </div>
-);
+
 export class HomePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   /**
    * when initial state username is not null, submit the form to load repos
    */
   componentWillMount() {
     const { fetchTravels } = this.props;
-    
-        console.log(fetchTravels("all"))
+    fetchTravels("all")
   }
   componentDidMount() {
 
@@ -56,12 +49,7 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
 
   render() {
     const { travels } = this.props;
-    let condition = travels.travelsList.travel;
-    if(typeof condition === "undefined") {
-      condition = false;
-    } else {
-      condition = travels.travelsList.travel.length
-    }
+    console.log(this.props, "HOME")
     return (
       <article>
         <Helmet
@@ -77,19 +65,15 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
             </H2>
           </CenteredSection>
           <Section>
-            {
-              !travels.travelsList.loading && condition ?
-                <List 
-                component={MaterialCard} 
-                items={travels.travelsList.travel}></List> :
-                <CircularProgressExampleSimple />
-            }
+            <TravelsList travels={travels.travelsList}/>
           </Section>
         </div>
       </article>
     );
   }
 }
+
+
 
 HomePage.propTypes = {
   loading: React.PropTypes.bool,

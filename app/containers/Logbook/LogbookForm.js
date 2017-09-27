@@ -3,19 +3,24 @@ import PropTypes from 'prop-types'
 import { Link } from 'react-router';
 import { 
     addTravel, 
-    createTravel } from './logic/actions'
+    createTravel,
+    createTravelSuccess,
+    createTravelFailure
+} from '../Travel/logic/actions'
 import { connect } from 'react-redux';
 
 import { 
     makeSelectUsername, 
     makeSelectLogbooks,
-    makeSelectLogbooksItem 
+    makeSelectLogbooksItem,
+    selectTravels
 } from './logic/selectors'
 
 import { 
     createStructuredSelector 
 } from 'reselect';
 
+import TravelsList from '../Travel/TravelsList' 
 import RaisedButton from 'material-ui/RaisedButton';
 
 
@@ -49,7 +54,13 @@ class UserLogbook extends Component {
     }
 }
 class LogbookForm extends Component {
-    readerRes() {
+    componentWillMount() {
+        let { fetchTravels, dispatch } = this.props;
+   
+    }
+
+    addTravelFUnc(e) {
+        e.preventDefault();
         const reader = new FileReader();
         const { 
             addTravel, 
@@ -63,33 +74,15 @@ class LogbookForm extends Component {
                 description: this.description.value,
                 img: reader.result
             }
-            // console.log(data)
-            addTravel(data)
-            // createTravel(data).payload.then(res => {
-            //     console.log(res)
-            // })
+            createTravel(data)
         }
 
-      
         reader.readAsDataURL(this.img.files[0])
-
-    }
-
-    componentWillMount() {
-        let { fetchTravels, dispatch } = this.props;
-        // console.log(dispatch(fetchTravels()))
-        // console.log(fetchTravels('all'))
-        
-    }
-
-    addTravelFUnc(e) {
-        e.preventDefault();
-        this.readerRes();
     }
 
   render() {
-    let { logbooks } = this.props;
-    console.log(logbooks)
+    let { logbooks, travels } = this.props;
+    console.log(this.props, "IN")
     return (
         <div className="box">
            <form action="" className="logbook-form">
@@ -126,29 +119,7 @@ class LogbookForm extends Component {
             </RaisedButton >
 
         </form>
-        <ul>
-            {
-                typeof logbooks !== "undefined" ?
-                logbooks.map((item, i) => (
-                   <li key={i} className="travel-item">
-                       <div className="travel-item__name">
-                            <Link to={`/travel/${item.name}`}>
-                                {item.name}
-                            </Link>     
-                       </div>
-                       <div className="travel-item__description">
-                           {item.description}
-                       </div>
-                       <div className="travel-item__avatar">
-                           <img src={item.img} 
-                               alt=""
-                            />
-                       </div>
-                   </li>
-                )) : 
-                <li> NO repos </li>
-            }
-        </ul>
+             <TravelsList travels={travels.travelsList}/> 
         </div>
     )
   }
@@ -157,13 +128,20 @@ class LogbookForm extends Component {
 function mapStateToProps(state) {
     return createStructuredSelector({
       logbooks: makeSelectLogbooks(),
+      travels: selectTravels()
     })
   }
   
   function mapDispatchToProps(dispatch) {
     return {
       addTravel: (id) => dispatch(addTravel(id)),
-      createTravel: (id) => dispatch(createTravel(id)),
+      createTravel: (id) => {
+        dispatch(createTravel(id))
+            .payload.then(
+                res => dispatch(createTravelSuccess(res)),
+                err => dispatch(createTravelFailure(err))
+            )
+      },
       dispatch,
     };
   }

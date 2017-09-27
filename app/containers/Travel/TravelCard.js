@@ -1,21 +1,23 @@
 import React from 'react';
-import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
-import FlatButton from 'material-ui/FlatButton';
 
-const TravelCard = (props) => (
-  <Card>
-    <CardMedia>
-      <img src={props.item.img} alt="" />
-    </CardMedia>
-    <CardTitle title={props.item.name}/>
-    <CardText>
-    {props.item.description}
-    </CardText>
-    <CardActions>
-      <FlatButton label="Action1" />
-    </CardActions>
-  </Card>
-);
+import CircularProgressExampleSimple from 'components/LoaderList';
+import TravelCard from 'components/TravelCard';
 
 
-export default TravelCard;
+
+
+const TravelCardItem = (props) => {
+  if(typeof props.travel === "undefined") {
+    return (<div>No travels </div>)
+  } else if(!props.loading && props.travel !== null) {
+    return <TravelCard item={props.travel}/> 
+  } else if(props.loading){
+    return <CircularProgressExampleSimple />
+  } else {
+    return (<div>No travels </div>)
+  }
+}
+
+
+
+export default TravelCardItem;

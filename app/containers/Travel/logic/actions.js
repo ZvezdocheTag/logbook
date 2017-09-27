@@ -4,13 +4,14 @@ import {
   FETCH_TRAVEL,
   FETCH_TRAVEL_SUCCESS,
   FETCH_TRAVEL_FAILURE,
+  FETCH_TRAVELS,
+  FETCH_TRAVELS_SUCCESS,
+  FETCH_TRAVELS_FAILURE,
   CREATE_TRAVEL,
   CREATE_TRAVEL_SUCCESS,
   CREATE_TRAVEL_FAILURE,
-  VALIDATE_TRAVEL_FIELDS,
-  VALIDATE_TRAVEL_FIELDS_SUCCESS,
-  VALIDATE_TRAVEL_FIELDS_FAILURE,
 } from './constants';
+import axios from 'axios';
 import { v4 } from 'node-uuid'
 
 import { 
@@ -28,37 +29,36 @@ import {
       data: {...data, userId: v4()}
     };
   }
-
-  // when i was dispatch this action I should past in payload my fake api promise
-  export function validateTravelFields(props) {
-    //note: we cant have /travels/validateFields because it'll match /travels/:id path!
+  export function fetchTravels(filter) {
     return {
-      type: VALIDATE_TRAVEL_FIELDS,
-      payload: request
+      type: FETCH_TRAVELS,
+      request: getTravels(filter)
     };
   }
-  
-  export function validateTravelFieldsSuccess() {
-    return {
-      type: VALIDATE_TRAVEL_FIELDS_SUCCESS
-    };
+    
+  export function fetchTravelsSuccess(travels) {
+  return {
+    type: FETCH_TRAVELS_SUCCESS,
+    payload: travels
+  };
   }
   
-  export function validateTravelFieldsFailure(error) {
-    return {
-      type: VALIDATE_TRAVEL_FIELDS_FAILURE,
-      payload: error
-    };
+  export function fetchTravelsFailure(error) {
+  return {
+    type: FETCH_TRAVELS_FAILURE,
+    payload: error
+  };
   }
-  
   export function createTravel(props) {
+    console.log("CREATEf")
     return {
       type: CREATE_TRAVEL,
-      payload: sendTravel({...props, userId: v4()})
+      payload: sendTravel(props)
     };
   }
   
   export function createTravelSuccess(newTravel) {
+    console.log("CREATEf s")
     return {
       type: CREATE_TRAVEL_SUCCESS,
       payload: newTravel
@@ -73,15 +73,15 @@ import {
   }
   
   export function fetchTravel(id) {
-    const request = axios.get(`${ROOT_URL}/travels/${id}`);
-  
+    console.log("SC ss das")
     return {
       type: FETCH_TRAVEL,
-      payload: request
+      payload: getTravels(id)
     };
   }
   
   export function fetchTravelSuccess(activeTravel) {
+    console.log("SC sss")
     return {
       type: FETCH_TRAVEL_SUCCESS,
       payload: activeTravel
@@ -89,6 +89,7 @@ import {
   }
   
   export function fetchTravelFailure(error) {
+    console.log("SC sss s")
     return {
       type: FETCH_TRAVEL_FAILURE,
       payload: error

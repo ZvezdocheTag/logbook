@@ -50,6 +50,7 @@ export default function createRoutes(store) {
       path: '/travel/:id',
       name: 'travel',
       getComponent(nextState, cb) {
+        console.log(nextState, cb, store.getState())
         import('containers/Travel')
           .then(loadModule(cb))
           .catch(errorLoading);
@@ -58,6 +59,7 @@ export default function createRoutes(store) {
       path: '/post/:id',
       name: 'post',
       getComponent(nextState, cb) {
+        
         import('containers/Post')
           .then(loadModule(cb))
           .catch(errorLoading);

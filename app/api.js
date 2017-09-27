@@ -1,47 +1,5 @@
 import { v4 } from 'node-uuid'
-
-const usersID = {
-    "a1": {
-        name: "John"
-    },
-    "a2": {
-        name: "Don"
-    }
-}
-
-const fakeDatabase = {
-    travels: [
-        {
-            id: v4(),
-            name: "Gaiti tour",
-            description: "pomidaor",
-            img: '',
-            userId: "a1"
-        },
-        {
-            id: v4(),
-            name: "Bora bora rodeo",
-            description: "pomidaor",
-            img: '',
-            userId: "a2"
-        },
-        {
-            id: v4(),
-            name: "Gibraaltar banans",
-            description: "pomidaor",
-            img: '',
-            userId: "a1"
-        },
-        {
-            id: v4(),
-            name: "Suhili mocki",
-            description: "pomidaor",
-            img: '',
-            userId: "a2"
-        }
-    ],
-    posts: []
-}
+import fakeDatabase from './db'
 
 const delay = (ms) => 
     new Promise(resolve => setTimeout(resolve, ms))
@@ -69,9 +27,7 @@ export const getTravels = (id) => {
         } else if(id === "all") {
             return fakeDatabase.travels
         } else {
-            return fakeDatabase
-                .travels
-                .filter(item => item.id === id)
+            return fakeDatabase.travels.filter(item => item.id === id)[0]
         } 
     })
 }
@@ -97,6 +53,7 @@ export const getPosts = (id) => {
         } else if(id === "all") {
             return fakeDatabase.posts
         } else {
+            
             return fakeDatabase
                 .posts
                 .filter(item => item.id === id)
@@ -111,7 +68,8 @@ export const sendTravel = (data) => {
             throw new Error(`Unknow user `)
         } else {
             console.log("DATA PUSH")
-            return fakeDatabase.travels.push(data)
+            fakeDatabase.travels.unshift({...data, id: v4()})
+            return {...data, id: v4()}
         }
     })
 }

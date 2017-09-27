@@ -8,7 +8,7 @@ import { combineReducers } from 'redux-immutable';
 import { LOCATION_CHANGE } from 'react-router-redux';
 
 import appReducer from 'containers/App/reducer';
-import TravelsReducer from 'containers/Logbook/logic/reducer';
+import TravelsReducer from 'containers/Travel/logic/reducer';
  
 /*
  * routeReducer

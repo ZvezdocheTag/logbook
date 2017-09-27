@@ -19,43 +19,11 @@ import {
   FETCH_POSTS,
   FETCH_POSTS_SUCCESS,
   FETCH_POSTS_FAILURE,
-  FETCH_TRAVELS,
-  FETCH_TRAVELS_SUCCESS,
-  FETCH_TRAVELS_FAILURE,
 } from './constants';
-
-import { 
-  getTravels
-} from '../../api'
 
 /*
  * Actions describe changes of state in your application
  */
-
-// We import constants to name our actions' type
-export function fetchTravels(filter) {
-  return {
-    type: FETCH_TRAVELS,
-    request: getTravels(filter)
-  };
-}
-  
-export function fetchTravelsSuccess(travels) {
-console.log("SU")
-return {
-  type: FETCH_TRAVELS_SUCCESS,
-  payload: travels
-};
-}
-
-export function fetchTravelsFailure(error) {
-console.log("ER")
-return {
-  type: FETCH_TRAVELS_FAILURE,
-  payload: error
-};
-}
-
 
 export function fetchPosts() {
   return {

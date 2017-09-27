@@ -10,7 +10,6 @@ const selectGlobal = (state) => state;
 const makeSelectCurrentUser = () => createSelector(
   selectGlobal,
   (globalState) => {
-    // console.log(globalState, "GLOBAL STATE", globalState.get('currentUser'))
     return globalState.currentUser
   }
 );
@@ -28,8 +27,7 @@ const makeSelectError = () => createSelector(
 const makeSelectTravels = () => createSelector(
   selectGlobal,
   (globalState) => {
-    // console.log(globalState.get("travel"),globalState, "GLOB")
-    return globalState.get("global")
+    return globalState.get("travel")
   }
 );
 
@@ -38,7 +36,7 @@ const makeSelectLocationState = () => {
   let prevRoutingStateJS;
 
   return (state) => {
-    const routingState = state.get('route'); // or state.route
+    const routingState = state.get('route');
 
     if (!routingState.equals(prevRoutingState)) {
       prevRoutingState = routingState;

@@ -50,45 +50,7 @@ const initialState = {
   
 export default function appReducer(state = initialState, action) {
   switch (action.type) {
-    case FETCH_TRAVELS:// start fetching posts and set loading = true
-        // console.log( state, "REDUCER FETCH")
-        return { 
-        ...state, 
-        travelsList: {
-          travel:[], 
-          error: null, 
-          loading: true
-        }
-      };  
-    case FETCH_TRAVELS_SUCCESS:// return list of travel and make loading = false
-    console.log({ 
-      ...state, 
-      travelsList: {
-        travel: action.payload,
-        error:null, 
-        loading: false
-        }
-      }, "REDUCER FETCH SUCCESS")
-      return { 
-        ...state, 
-        travelsList: {
-          travel: action.payload,
-          error:null, 
-          loading: false
-          }
-        };
-    case FETCH_TRAVELS_FAILURE:// return error and make loading = false
-      error = action.payload || {message: action.payload.message};//2nd one is network or server down errors
-      return { 
-        ...state, 
-        travelsList: {
-          travel: [], 
-          error: error, 
-          loading: false
-        }
-      };
     default:
-      console.log(state)
       return state;
   }
 }

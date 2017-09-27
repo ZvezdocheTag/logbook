@@ -4,34 +4,22 @@
 
 import { createSelector } from 'reselect';
 
-const selectHome = (state) => {
-  // console.log(state, "IN SELECTOR")
-  
-  return state.get('travel')
-};
+const selectHome = (state) => state;
 
 const makeSelectLogbooks = () => {
   
 return createSelector(
   selectHome,
-  (homeState) => {
-    console.log(homeState, "NEXT")
-    // console.log(homeState, "PREV", homeState.get('userTravels'))
-    return homeState.userTravels
-  }
+  (homeState) => homeState.get('travel').userTravels
 )};
 
-const makeSelectLogbooksItem = () => createSelector(
+const selectTravels = () => createSelector(
   selectHome,
-  (homeState) => {
-    // console.log(homeState, "ON")
-    return homeState.userTravels
-  }
-);
-
+  (travelState) => travelState.get('travel')
+)
 
 export {
   selectHome,
   makeSelectLogbooks,
-  makeSelectLogbooksItem
+  selectTravels
 };

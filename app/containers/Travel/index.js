@@ -2,37 +2,37 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { FormattedNumber } from 'react-intl';
-import TravelCard from './TravelCard';
+import TravelCardItem from './TravelCard';
 import List from 'components/List';
 import styled from 'styled-components';
 import { makeSelectTravels } from '../App/selectors'
-
+import {
+  fetchTravel,
+  fetchTravelSuccess,
+  fetchTravelFailure,
+} from './logic/actions'
 
 const ListWrapper = styled.div`
   outline: none;
   border-bottom: 1px dotted #999;
 `;
 
-class Travel extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
-  render() {
 
+class Travel extends React.Component { 
+  componentWillMount() {
     const { id } = this.props.params;
-    const { travelsList } = this.props.travels;
-    let travel;
-    if(typeof travelsList.travel !== "undefined") {
-        travel = travelsList
-          .travel
-          .filter(item => item.id === id)
-    } else {
-      console.log("UNDEFINED")
-    }
-    console.log(travel)
-      
+    const { fetchTravel } = this.props;
+    fetchTravel(id)
+  } 
+  
+  render() {
+    const { activeTravel } = this.props.travels;
+    const { loading, travel } = activeTravel;
+
     return (
         <div>
-            Travels
             <ListWrapper>
-                <TravelCard item={typeof travel[0] !== "undefined" ? travel[0] : null}/>
+              <TravelCardItem loading={loading} travel={travel}/>
             </ListWrapper>
         </div>
     );
@@ -44,7 +44,20 @@ const mapStateToProps = () => {
     travels: makeSelectTravels()
   })
 }
-export default connect(mapStateToProps)(Travel);
+function mapDispatchToProps(dispatch) {
+  
+  return {
+    fetchTravel: (id) => {
+      dispatch(fetchTravel(id))
+          .payload.then(
+              res => dispatch(fetchTravelSuccess(res)),
+              err => dispatch(fetchTravelFailure(err))
+          )
+    },
+    dispatch,
+  };
+}
+export default connect(mapStateToProps, mapDispatchToProps)(Travel);
 
 // RepoListItem.propTypes = {
 //   item: React.PropTypes.object,
