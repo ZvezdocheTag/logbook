@@ -14,81 +14,92 @@ const fakeDatabase = {
             name: "Gaiti tour",
             description: "pomidaor",
             img: '',
-            userId: "a1"
+            userId: "a1",
+            posts: [
+                {
+                    id: 'e9e9370d-00a2-40c6-8774-12c963df1301',
+                    name: "Drink tekila",
+                    description: "pomidaor",
+                    img: '',
+                    coordinate: {
+                        longitude: "123,312",
+                        latitude: "123,312"
+                    }  
+                },
+                {
+                    id: 'e9e9370d-00a2-40c6-8774-12c963df1302',
+                    name: "Drink tekila",
+                    description: "pomidaor",
+                    img: '',     
+                    coordinate: {
+                        longitude: "123,312",
+                        latitude: "123,312"
+                    }  
+                },
+                {
+                    id: 'e9e9370d-00a2-40c6-8774-12c963df1303',
+                    name: "Drink tekila",
+                    description: "pomidaor",
+                    img: '', 
+                    coordinate: {
+                        longitude: "123,312",
+                        latitude: "123,312"
+                    }      
+                },
+            ]
         },
         {
             id: 'e9e9370d-00a2-40c6-8774-12c963df1352',
             name: "Bora bora rodeo",
             description: "pomidaor",
             img: '',
-            userId: "a2"
+            userId: "a2",
+            posts: [
+                {
+                    id: 'e9e9370d-00a2-40c6-8774-12c963df1304',
+                    name: "Drink tekila",
+                    description: "pomidaor",
+                    img: '',      
+                },
+                {
+                    id: 'e9e9370d-00a2-40c6-8774-12c963df1305',
+                    name: "Drink tekila",
+                    description: "pomidaor",
+                    img: '',      
+                },
+            ]
         },
         {
             id: 'e9e9370d-00a2-40c6-8774-12c963df1353',
             name: "Gibraaltar banans",
             description: "pomidaor",
             img: '',
-            userId: "a1"
+            userId: "a1",
+            posts: []
         },
         {
             id: 'e9e9370d-00a2-40c6-8774-12c963df1354',
             name: 'Bonita',
             description: "pomidaor",
             img: '',
-            userId: "a2"
+            userId: "a2",
+            posts: [
+                {
+                    id: 'e9e9370d-00a2-40c6-8774-12c963df1306',
+                    name: "Drink tekila",
+                    description: "pomidaor",
+                    img: '',      
+                },
+                {
+                    id: 'e9e9370d-00a2-40c6-8774-12c963df1307',
+                    name: "Drink tekila",
+                    description: "pomidaor",
+                    img: '',      
+                },
+            ]
         }
     ],
-    //key by id travels
-    posts: {
-        'e9e9370d-00a2-40c6-8774-12c963df1351': [
-            {
-                id: 'e9e9370d-00a2-40c6-8774-12c963df1301',
-                name: "Drink tekila",
-                description: "pomidaor",
-                img: '',      
-            },
-            {
-                id: 'e9e9370d-00a2-40c6-8774-12c963df1302',
-                name: "Drink tekila",
-                description: "pomidaor",
-                img: '',      
-            },
-            {
-                id: 'e9e9370d-00a2-40c6-8774-12c963df1303',
-                name: "Drink tekila",
-                description: "pomidaor",
-                img: '',      
-            },
-        ],
-        'e9e9370d-00a2-40c6-8774-12c963df1352': [
-            {
-                id: 'e9e9370d-00a2-40c6-8774-12c963df1304',
-                name: "Drink tekila",
-                description: "pomidaor",
-                img: '',      
-            },
-            {
-                id: 'e9e9370d-00a2-40c6-8774-12c963df1305',
-                name: "Drink tekila",
-                description: "pomidaor",
-                img: '',      
-            },
-        ],
-        'e9e9370d-00a2-40c6-8774-12c963df1354': [
-            {
-                id: 'e9e9370d-00a2-40c6-8774-12c963df1306',
-                name: "Drink tekila",
-                description: "pomidaor",
-                img: '',      
-            },
-            {
-                id: 'e9e9370d-00a2-40c6-8774-12c963df1307',
-                name: "Drink tekila",
-                description: "pomidaor",
-                img: '',      
-            },
-        ]
-    }
+
 }
 
 export default fakeDatabase;

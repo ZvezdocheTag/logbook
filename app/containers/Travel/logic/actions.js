@@ -11,7 +11,7 @@ import {
   CREATE_TRAVEL_SUCCESS,
   CREATE_TRAVEL_FAILURE,
 } from './constants';
-import axios from 'axios';
+
 import { v4 } from 'node-uuid'
 
 import { 
@@ -50,7 +50,6 @@ import {
   };
   }
   export function createTravel(props) {
-    console.log("CREATEf")
     return {
       type: CREATE_TRAVEL,
       payload: sendTravel(props)
@@ -58,7 +57,6 @@ import {
   }
   
   export function createTravelSuccess(newTravel) {
-    console.log("CREATEf s")
     return {
       type: CREATE_TRAVEL_SUCCESS,
       payload: newTravel
@@ -73,7 +71,6 @@ import {
   }
   
   export function fetchTravel(id) {
-    console.log("SC ss das")
     return {
       type: FETCH_TRAVEL,
       payload: getTravels(id)
@@ -81,7 +78,6 @@ import {
   }
   
   export function fetchTravelSuccess(activeTravel) {
-    console.log("SC sss")
     return {
       type: FETCH_TRAVEL_SUCCESS,
       payload: activeTravel
@@ -89,7 +85,6 @@ import {
   }
   
   export function fetchTravelFailure(error) {
-    console.log("SC sss s")
     return {
       type: FETCH_TRAVEL_FAILURE,
       payload: error

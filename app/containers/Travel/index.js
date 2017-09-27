@@ -11,6 +11,7 @@ import {
   fetchTravelSuccess,
   fetchTravelFailure,
 } from './logic/actions'
+import PostsList from 'containers/Post/PostsList'
 
 const ListWrapper = styled.div`
   outline: none;
@@ -34,6 +35,8 @@ class Travel extends React.Component {
             <ListWrapper>
               <TravelCardItem loading={loading} travel={travel}/>
             </ListWrapper>
+            <h2>Posts</h2>
+            <PostsList posts={travel !== null ? travel.posts : false}/>
         </div>
     );
   }

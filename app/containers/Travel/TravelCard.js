@@ -3,14 +3,16 @@ import React from 'react';
 import CircularProgressExampleSimple from 'components/LoaderList';
 import TravelCard from 'components/TravelCard';
 
-
-
-
 const TravelCardItem = (props) => {
   if(typeof props.travel === "undefined") {
     return (<div>No travels </div>)
   } else if(!props.loading && props.travel !== null) {
-    return <TravelCard item={props.travel}/> 
+    return (
+      <div>
+        <TravelCard item={props.travel}/> 
+        
+      </div>
+    )
   } else if(props.loading){
     return <CircularProgressExampleSimple />
   } else {
