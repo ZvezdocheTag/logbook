@@ -22,9 +22,9 @@ const fakeDatabase = {
                     description: "pomidaor",
                     img: '',
                     coordinate: {
-                        longitude: "123,312",
-                        latitude: "123,312"
-                    }  
+                        lat: 36.976227,
+                        lng: 21.579895,
+                      }
                 },
                 {
                     id: 'e9e9370d-00a2-40c6-8774-12c963df1302',
@@ -32,9 +32,9 @@ const fakeDatabase = {
                     description: "pomidaor",
                     img: '',     
                     coordinate: {
-                        longitude: "123,312",
-                        latitude: "123,312"
-                    }  
+                        lat: 36.615528,
+                        lng: 22.348938,
+                      }
                 },
                 {
                     id: 'e9e9370d-00a2-40c6-8774-12c963df1303',
@@ -42,9 +42,9 @@ const fakeDatabase = {
                     description: "pomidaor",
                     img: '', 
                     coordinate: {
-                        longitude: "123,312",
-                        latitude: "123,312"
-                    }      
+                        lat: 35.281501,
+                        lng: 23.604126,
+                      }    
                 },
             ]
         },

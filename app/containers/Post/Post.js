@@ -24,12 +24,12 @@ const Post = (props) => (
                 <div 
                     className="coordinate__value value--longtitude"
                 >
-                {props.item.coordinate.longitude}
+                {props.item.coordinate.lng}
                 </div>
                 <div 
                     className="coordinate__value value--latitude"
                 >
-                {props.item.coordinate.latitude}
+                {props.item.coordinate.lat}
                 </div>
           </li>   
       </ul>

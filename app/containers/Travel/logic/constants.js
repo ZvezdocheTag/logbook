@@ -14,3 +14,8 @@ export const CREATE_TRAVEL_FAILURE = 'boilerplate/Travel/logic/CREATE_TRAVEL_FAI
 export const FETCH_TRAVELS = 'boilerplate/Travel/logic/FETCH_TRAVELS';
 export const FETCH_TRAVELS_SUCCESS = 'boilerplate/Travel/logic/FETCH_TRAVELS_SUCCESS';
 export const FETCH_TRAVELS_FAILURE = 'boilerplate/Travel/logic/FETCH_TRAVELS_FAILURE';
+
+//Create new post
+export const CREATE_POST = 'boilerplate/Travel/logic/CREATE_POST';
+export const CREATE_POST_SUCCESS = 'boilerplate/Travel/logic/CREATE_POST_SUCCESS';
+export const CREATE_POST_FAILURE = 'boilerplate/Travel/logic/CREATE_POST_FAILURE';

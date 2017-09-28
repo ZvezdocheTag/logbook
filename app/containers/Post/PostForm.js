@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router';
 import { 
+    addTravel, 
     createTravel,
     createTravelSuccess,
     createTravelFailure
@@ -13,7 +14,7 @@ import {
     makeSelectLogbooks,
     makeSelectLogbooksItem,
     selectTravels
-} from './logic/selectors'
+} from '../Logbook/logic/selectors'
 
 import { 
     createStructuredSelector 
@@ -22,16 +23,14 @@ import {
 import TravelsList from '../Travel/TravelsList' 
 import RaisedButton from 'material-ui/RaisedButton';
 
-class LogbookForm extends Component {
-    componentWillMount() {
-        let { fetchTravels, dispatch } = this.props;
-   
-    }
 
+
+class PostForm extends Component {
     addTravelFUnc(e) {
         e.preventDefault();
         const reader = new FileReader();
-        const {  
+        const { 
+            addTravel, 
             selectorsLogbook,
             createTravel
         } = this.props;
@@ -43,7 +42,7 @@ class LogbookForm extends Component {
                 img: reader.result,
                 posts: []
             }
-            createTravel(data)
+            // createTravel(data)
         }
 
         reader.readAsDataURL(this.img.files[0])
@@ -51,6 +50,7 @@ class LogbookForm extends Component {
 
   render() {
     let { logbooks, travels } = this.props;
+
     return (
         <div className="box">
            <form action="" className="logbook-form">
@@ -58,7 +58,6 @@ class LogbookForm extends Component {
                 <label htmlFor="travel-name" className="logbook-form__label">Title</label>
                 <input 
                     name="travel-name" 
-                    style={styl} 
                     className="logbook-form__input"
                     ref={name => this.name = name}
                  />
@@ -67,7 +66,6 @@ class LogbookForm extends Component {
                 <label htmlFor="travel-description" className="logbook-form__label">Description</label>
                 <textarea 
                 name="travel-description" 
-                style={styl} 
                 className="logbook-form__input" 
                 ref={description => this.description = description}
                 />
@@ -85,9 +83,7 @@ class LogbookForm extends Component {
                 onClick={this.addTravelFUnc.bind(this)}
             >
             </RaisedButton >
-
         </form>
-             <TravelsList travels={travels.travelsList}/> 
         </div>
     )
   }
@@ -102,6 +98,7 @@ function mapStateToProps(state) {
   
   function mapDispatchToProps(dispatch) {
     return {
+      addTravel: (id) => dispatch(addTravel(id)),
       createTravel: (id) => {
         dispatch(createTravel(id))
             .payload.then(
@@ -113,7 +110,7 @@ function mapStateToProps(state) {
     };
   }
   
-  export default connect(mapStateToProps, mapDispatchToProps)(LogbookForm);
+  export default connect(mapStateToProps, mapDispatchToProps)(PostForm);
   
 
 

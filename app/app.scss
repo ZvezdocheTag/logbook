@@ -36,3 +36,19 @@ img {
     list-style: none;
     margin-bottom: 30px;
 }
+.leaflet-container {
+    // position: static !important;
+    height: 100%;
+}
+
+.posts {
+    display: flex;
+}
+.posts__content {
+    width: 80%;
+}
+.posts__control{ 
+    width: 20%;
+    text-align: center;
+    padding-top: 30px;
+}

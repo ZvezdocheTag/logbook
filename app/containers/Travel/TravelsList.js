@@ -6,13 +6,10 @@ import CircularProgressExampleSimple from 'components/LoaderList'
 
 
 const TravelsList = (props) => {
-    console.log(props.travels, "IN THER")
-
     const { 
       loading, 
       travel 
     } = props.travels;
-    console.log(props)
     const condition = typeof travel !== "undefined" ? 
                       !!travel.length : 
                       false;

@@ -1,6 +1,5 @@
 import { fromJS, List } from 'immutable';
 import {
-  ADD_TRAVEL,
   FETCH_TRAVELS,
   FETCH_TRAVELS_SUCCESS,
   FETCH_TRAVELS_FAILURE,
@@ -10,6 +9,9 @@ import {
   CREATE_TRAVEL,
   CREATE_TRAVEL_SUCCESS,
   CREATE_TRAVEL_FAILURE,
+  CREATE_POST,
+  CREATE_POST_SUCCESS,
+  CREATE_POST_FAILURE,
 } from './constants';
 
 // The initial state of the App
@@ -25,23 +27,20 @@ travelsList: {
 newTravel: {
   travel: null, 
   error: null, 
-  loading: false
+  loading: false,
+  posts: []
 }, 
 
 activeTravel: {
   travel: null, 
   error: null, 
-  loading: false
+  loading: false,
+  posts: []
 }, 
 };
 
 function TravelsReducer(state = initialState, action) {
   switch (action.type) {
-    case ADD_TRAVEL:
-      return {
-        ...state,
-        userTravels: [...state.userTravels, action.data]
-      }
     case FETCH_TRAVELS:// start fetching posts and set loading = true
       return { 
       ...state, 
@@ -75,7 +74,6 @@ function TravelsReducer(state = initialState, action) {
       ...state, 
       activeTravel:{...state.activeTravel, loading: true}};
   case FETCH_TRAVEL_SUCCESS:
-    console.log(action.payload)
     return { 
       ...state, 
       activeTravel: {
@@ -132,6 +130,36 @@ function TravelsReducer(state = initialState, action) {
       }
     }
 
+    case CREATE_POST:
+  	return {
+      ...state, 
+      newPost: {
+        ...state.newPost, 
+        loading: true
+      }
+    }
+  case CREATE_POST_SUCCESS:
+  	return {
+      ...state, 
+      newPost: {
+        post:action.payload, 
+        error:null, 
+        loading: false
+      }
+    }
+  case CREATE_POST_FAILURE:
+    error = action.payload || 
+    { 
+      message: action.payload.message
+    };//2nd one is network or server down errors
+  	return {
+      ...state, 
+      newPost: {
+        post:null, 
+        error:error, 
+        loading: false
+      }
+    }
   default:
     return state;
   }

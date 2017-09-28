@@ -10,6 +10,9 @@ import {
   CREATE_TRAVEL,
   CREATE_TRAVEL_SUCCESS,
   CREATE_TRAVEL_FAILURE,
+  CREATE_POST,
+  CREATE_POST_SUCCESS,
+  CREATE_POST_FAILURE,
 } from './constants';
 
 import { v4 } from 'node-uuid'
@@ -23,6 +26,28 @@ import {
    *
    * @return {object} An action object with a type of LOAD_REPOS
    */
+  export function createPost(props, tokenFromStorage) {
+    
+      return {
+        type: CREATE_POST,
+        payload: request
+      };
+    }
+    
+    export function createPostSuccess(newPost) {
+      return {
+        type: CREATE_POST_SUCCESS,
+        payload: newPost
+      };
+    }
+    
+    export function createPostFailure(error) {
+      return {
+        type: CREATE_POST_FAILURE,
+        payload: error
+      };
+    }
+    
   export function addTravel(data) {
     return {
       type: ADD_TRAVEL,

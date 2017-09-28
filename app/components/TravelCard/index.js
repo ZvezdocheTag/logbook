@@ -2,8 +2,11 @@ import React from 'react';
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
 
+const style = {
+  marginBottom: '40px'
+}
 const TravelCard = (props) => (
-    <Card>
+    <Card style={style}>
       <CardMedia>
         <img src={props.item.img} alt="" />
       </CardMedia>
