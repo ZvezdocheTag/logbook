@@ -36,7 +36,7 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
     const { fetchTravels } = this.props;
     fetchTravels("all")
   }
-  
+
   render() {
     const { travels } = this.props;
     return (
@@ -50,7 +50,7 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
         <div>
           <CenteredSection>
             <H2>
-              Latest posts
+              Latest Travels
             </H2>
           </CenteredSection>
           <Section>

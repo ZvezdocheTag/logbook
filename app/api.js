@@ -71,8 +71,8 @@ export const sendPost = (data, travelID) => {
             .travels
             .filter(item => item.id === travelID)[0]
 
-            getTravel.posts.unshift(data);
-            console.log("DATA PUSH", data)
+            getTravel.posts.unshift({...data, id: v4()});
+            console.log("DATA PUSH", getTravel)
             return data         
         }
     })

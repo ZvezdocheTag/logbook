@@ -4,8 +4,12 @@ import { Link } from 'react-router';
 import { 
     createTravel,
     createTravelSuccess,
-    createTravelFailure
+    createTravelFailure,
+    fetchTravels,
+    fetchTravelsSuccess,
+    fetchTravelsFailure
 } from '../Travel/logic/actions'
+
 import { connect } from 'react-redux';
 
 import { 
@@ -25,7 +29,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 class LogbookForm extends Component {
     componentWillMount() {
         let { fetchTravels, dispatch } = this.props;
-   
+        fetchTravels("all")
     }
 
     addTravelFUnc(e) {
@@ -51,6 +55,7 @@ class LogbookForm extends Component {
 
   render() {
     let { logbooks, travels } = this.props;
+
     return (
         <div className="box">
            <form action="" className="logbook-form">
@@ -87,7 +92,9 @@ class LogbookForm extends Component {
             </RaisedButton >
 
         </form>
-             <TravelsList travels={travels.travelsList}/> 
+            <div className="box__item">
+            <TravelsList travels={travels.travelsList}/> 
+            </div>
         </div>
     )
   }
@@ -108,6 +115,14 @@ function mapStateToProps(state) {
                 res => dispatch(createTravelSuccess(res)),
                 err => dispatch(createTravelFailure(err))
             )
+      },
+      fetchTravels: (id) => {
+        dispatch(fetchTravels(id))
+        .request
+        .then(
+          res => dispatch(fetchTravelsSuccess(res)),
+          err => dispatch(fetchTravelsFailure(err))
+        )
       },
       dispatch,
     };

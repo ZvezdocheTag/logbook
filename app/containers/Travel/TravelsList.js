@@ -13,7 +13,7 @@ const TravelsList = (props) => {
     const condition = typeof travel !== "undefined" ? 
                       !!travel.length : 
                       false;
-   
+
     if(!loading && condition) {
       return (<List 
         component={MaterialCard} 

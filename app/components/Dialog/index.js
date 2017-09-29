@@ -13,7 +13,7 @@ export default class DialogTravel extends React.Component {
     return (
       <div>
         <Dialog
-          title="Dialog With Actions"
+          title="Add post to your travel"
           actions={this.props.actions}
           modal={false}
           open={this.props.open}

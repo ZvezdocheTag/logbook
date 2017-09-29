@@ -3,6 +3,7 @@ import A from './A';
 import Img from './Img';
 import NavBar from './NavBar';
 import HeaderLink from './HeaderLink';
+import HeaderLogo from './HeaderLogo';
 import Banner from './banner.jpg';
 
 class Header extends React.Component { 
@@ -10,6 +11,9 @@ class Header extends React.Component {
     return (
       <div>
         <NavBar>
+          <HeaderLogo to="/" className="logo">
+            BlogAboutTravels
+          </HeaderLogo>
           <HeaderLink to="/">
             home
           </HeaderLink>

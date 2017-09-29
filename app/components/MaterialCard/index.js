@@ -15,15 +15,19 @@ const MaterialCard = (props) => (
     <CardMedia>
       <img src={props.item.img} alt="" />
     </CardMedia>
-    <Link to={`/travel/${props.item.id}`}>
-      <CardTitle title={props.item.name}/>
+    <Link to={`/travel/${props.item.id}`} 
+    style={{textDecoration: 'none'}}>
+      <CardTitle 
+      title={props.item.name}
+      titleStyle={{
+        color: '#00bcd4',
+        fontSize: '36px'
+      }}
+       />
     </Link>
     <CardText>
       {props.item.description}
     </CardText>
-    <CardActions>
-      <FlatButton label="Action1" />
-    </CardActions>
   </Card>
 );
 

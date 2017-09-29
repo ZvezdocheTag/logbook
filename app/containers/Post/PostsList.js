@@ -21,7 +21,7 @@ const PostsList = (props) => {
     // } else {
     //   return <CircularProgressExampleSimple />
     // }
-    
+        console.log(props.posts, "POST")
         if(!props.posts) {
             return ( 
                 <h2>No posts</h2>

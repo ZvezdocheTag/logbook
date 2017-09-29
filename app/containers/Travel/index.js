@@ -40,7 +40,6 @@ const PostAddedButton = (props) => (
 );
 const ListWrapper = styled.div`
 outline: none;
-border-bottom: 1px dotted #999;
 `;
 
 function getValue(obj) {
@@ -51,11 +50,21 @@ function getValue(obj) {
   return coordinate
 }
 
+function splitCoordinateValue(obj) {
+  let coordinate = [];
+  for(let key in obj) {
+    coordinate.push(getValue(obj[key]))
+  }
+  return coordinate;
+}
+
+
+
 class Travel extends React.Component { 
   constructor() {
     super();
     this.state = {
-      zoom: 7,
+      zoom: 10,
       open: false,
     };
   }
@@ -91,9 +100,18 @@ class Travel extends React.Component {
         coords = travel
         .posts
         .filter(item => item.coordinate !== "undefined")
-        .map(item => getValue(item.coordinate))
+        .map(item => {
+          console.log(item.coordinate)
+          return !item.coordinate.hasOwnProperty("1") ?
+          getValue(item.coordinate):
+          splitCoordinateValue(item.coordinate)
+        }
+          
+          )
       }
     }
+
+
     const actions = [
       <FlatButton
         label="Cancel"
@@ -101,7 +119,8 @@ class Travel extends React.Component {
         onClick={this.handleClose}
       />
     ];
- 
+    
+    console.log(coords)
     return (
         <div>
             <ListWrapper>

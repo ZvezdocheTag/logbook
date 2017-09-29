@@ -2,7 +2,14 @@ body {
     // color: red;
 }
 .logbook-form {
-    width: 50%;
+    width: 40%;
+    padding: 30px 16px;
+    background: #fff;
+    border-radius: 3px;
+}
+.logbook-form.logbook-form--in-modal {
+    width: 100%;
+    padding: 30px 0;
 }
 .logbook-form__label,
 .logbook-form__input {
@@ -20,10 +27,12 @@ body {
 }
 .box {
     display: flex;
+    align-items: flex-start;
 }
 
-.box > * {
-    flex: 1;
+.box__item {
+    width: 60%;
+    padding-left: 40px;
 }
 .logbook__avatar {
     width: 100%;
@@ -52,10 +61,18 @@ img {
     text-align: center;
     padding-top: 30px;
 }
-
+.coordinate {
+    display: flex;
+}
+.coordinate__item {
+    flex: 1;
+}
 .logbook-form__input {
     border: 1px solid rgba(0, 0, 0, 0.3);;
     border-radius: 3px;
+}
+.logbook-form__field.hide {
+    display: none;
 }
 .logbook-form__field--lng,
 .logbook-form__field--lat {
@@ -65,4 +82,23 @@ img {
 .logbook-form__field--lng {
     margin-right: 20px;
     width: calc(50% - 20px);
+}
+.coordinate {
+    padding-bottom: 30px;
+    padding-left: 16px;
+
+    &__item {
+        list-style: none;
+        padding-left: 30px;
+        position: relative;
+    }
+}
+
+.card-subtitle {
+    padding: 16px;
+    margin-bottom: 0;
+    margin-top: 0;
+}
+.logo {
+    float: left;
 }

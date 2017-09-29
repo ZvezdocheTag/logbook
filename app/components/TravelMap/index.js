@@ -13,32 +13,50 @@ L.Icon.Default.mergeOptions({
   shadowUrl: require('leaflet/dist/images/marker-shadow.png'),
 });
 const sfdu ={
-
   position: 'relative',
   width: "100%",
   height: '400px',
   overflow: 'hidden'
-  }
-  const TravelMap = (props) => (
+}
+
+const TravelMap = (props) => (
     <div style={sfdu}>
     
       <Map 
-      center={props.coords[0]} 
+      center={props.coords.filter(item => typeof item[0] === "number")[0]} 
       zoom={props.zoom} style={{co: 'static !important'}}>
           <TileLayer style={{color: 'blue'}}
             url='http://{s}.tile.osm.org/{z}/{x}/{y}.png'
           />
           {
-            props.coords.map((item, i) => (
+            props.coords.map((item, i) => {
+             
+                return typeof item[0] === "number" ? 
+              (
               <Marker position={item} key={i}>
                 <Popup>
                   <span>A pretty CSS3 popup. <br/> Easily customizable.</span>
                 </Popup>
               </Marker>
-            ))
+            ) :
+            (
+              <div key={i}>
+                {
+                  item.map((marker, j) => (
+                    <Marker position={marker} key={`${marker[0] * j}`}>
+                      <Popup>
+                        <span>A pretty CSS3 popup. <br/> Easily customizable.</span>
+                      </Popup>
+                    </Marker>
+                  ))
+                }
+                <Polyline positions={item} />
+              </div>
+            )
+              })
           }
       </Map>
     </div>
-    )
+)
 
     export default TravelMap;

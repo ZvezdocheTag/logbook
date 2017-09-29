@@ -9,7 +9,7 @@ import {
     makeSelectLogbooksItem,
     selectTravels
 } from '../Logbook/logic/selectors'
-
+import Toggle from 'material-ui/Toggle';
 import { 
     createStructuredSelector 
 } from 'reselect';
@@ -17,11 +17,72 @@ import {
 import TravelsList from '../Travel/TravelsList' 
 import RaisedButton from 'material-ui/RaisedButton';
 
+const CoordsField = (props) => {
+
+    return (
+        <div>
+            <div className="logbook-form__field logbook-form__field--lng">
+                <label htmlFor="travel-lng" className="logbook-form__label">Longtitude</label>
+                <input 
+                    name={`travel-lng-${props.keya}`}
+                    className="logbook-form__input"
+                    ref={lng => this.lng = lng}
+                    placeholder="52.50"
+                    onChange={props.change}
+                 />
+            </div>
+            <div className="logbook-form__field logbook-form__field--lat">
+                <label htmlFor="travel-lat" className="logbook-form__label">Latitude</label>
+                <input 
+                    name={`travel-lat-${props.keya}`}
+                    className="logbook-form__input"
+                    ref={lat => this.lat = lat}
+                    placeholder="50.50"
+                    onChange={props.change}
+                 />
+            </div>
+        </div>
+    )
+}
 
 class PostForm extends Component {
+    constructor() {
+        super();
+        this.state = {
+            coordinate: {
+                '1': {},
+                '2': {}
+            },
+            active: false,
+        }
+    }
+
+
+
+    getCoordinate(e) {
+        let condition = e.target.name[e.target.name.length - 1];
+        // console.log(condition)
+        
+        this.setState({
+            [`coordinate`]: {
+                ...this.state.coordinate,
+                [condition]: {
+                    ...this.state.coordinate[condition],
+                    [e.target.name]: +e.target.value
+                }
+            }
+        })
+    }
+
+    toggleCoordinateField = () => {
+        this.setState({
+            active: !this.state.active,
+        })
+    }
 
     addTravelFUnc(e) {
         e.preventDefault();
+
         const reader = new FileReader();
         const { 
             addTravel, 
@@ -30,22 +91,16 @@ class PostForm extends Component {
             travels,
             handleClose
         } = this.props;
-
-
         const { activeTravel } = travels
-
+        let { coordinate, active } = this.state;
 
         reader.onloadend = () => {
             let data = {
                 name: this.name.value,
                 description: this.description.value,
                 img: reader.result,
-                coordinate: {
-                    lat: this.lat.value,
-                    lng: this.lng.value,
-                  }
+                coordinate: !active ? coordinate['1'] : coordinate
             }
-
             this.props.createPostOn(data, activeTravel.travel.id)
             handleClose()
         }
@@ -58,7 +113,7 @@ class PostForm extends Component {
 
     return (
         <div className="box">
-           <form action="" className="logbook-form">
+           <form action="" className="logbook-form logbook-form--in-modal">
             <div className="logbook-form__field logbook-form__field--title">
                 <label htmlFor="travel-name" className="logbook-form__label">Title</label>
                 <input 
@@ -67,23 +122,17 @@ class PostForm extends Component {
                     ref={name => this.name = name}
                  />
             </div>
-            <div className="logbook-form__field logbook-form__field--lng">
-                <label htmlFor="travel-name" className="logbook-form__label">Longtitude</label>
-                <input 
-                    name="travel-name" 
-                    className="logbook-form__input"
-                    ref={lng => this.lng = lng}
-                    placeholder="52.50"
-                 />
-            </div>
-            <div className="logbook-form__field logbook-form__field--lat">
-                <label htmlFor="travel-name" className="logbook-form__label">Latitude</label>
-                <input 
-                    name="travel-name" 
-                    className="logbook-form__input"
-                    ref={lat => this.lat = lat}
-                    placeholder="50.50"
-                 />
+            <CoordsField change={this.getCoordinate.bind(this)} keya={1}/>
+                <Toggle
+                style={{
+                    width: '45%',
+                    marginBottom: '5px'
+                    }}
+                label="Add one more coordinate"
+                onToggle={this.toggleCoordinateField}
+                />
+            <div className={`logbook-form__field ${this.state.active ? "" : "hide"}`} >
+                <CoordsField change={this.getCoordinate.bind(this)} keya={2}/>
             </div>
             <div className="logbook-form__field logbook-form__field--description">
                 <label htmlFor="travel-description" className="logbook-form__label">Description</label>
