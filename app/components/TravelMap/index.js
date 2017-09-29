@@ -21,7 +21,10 @@ const sfdu ={
   }
   const TravelMap = (props) => (
     <div style={sfdu}>
-      <Map center={props.coords[0]} zoom={props.zoom} style={{co: 'static !important'}}>
+    
+      <Map 
+      center={props.coords[0]} 
+      zoom={props.zoom} style={{co: 'static !important'}}>
           <TileLayer style={{color: 'blue'}}
             url='http://{s}.tile.osm.org/{z}/{x}/{y}.png'
           />
@@ -34,9 +37,6 @@ const sfdu ={
               </Marker>
             ))
           }
-    
-          <Polyline positions={props.positionsLine} style={{color: 'red'}}>
-        </Polyline>
       </Map>
     </div>
     )

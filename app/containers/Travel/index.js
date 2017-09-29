@@ -8,9 +8,12 @@ import TabsTravels from 'components/TabsTravels';
 import styled from 'styled-components';
 import { makeSelectTravels } from '../App/selectors'
 import {
+  createPost,
   fetchTravel,
   fetchTravelSuccess,
   fetchTravelFailure,
+  createPostSuccess,
+  createPostFailure,
 } from './logic/actions'
 import PostsList from 'containers/Post/PostsList'
 import TravelMap from 'components/TravelMap'
@@ -43,7 +46,7 @@ border-bottom: 1px dotted #999;
 function getValue(obj) {
   let coordinate = [];
   for(let key in obj) { 
-    coordinate.push(obj[key])
+    coordinate.push(+obj[key])
   }
   return coordinate
 }
@@ -52,22 +55,18 @@ class Travel extends React.Component {
   constructor() {
     super();
     this.state = {
-      lat: 51.505,
-      lng: -0.09,
       zoom: 7,
       open: false,
     };
-    this.handleOpen = this.handleOpen.bind(this)
   }
   componentWillMount() {
-    const { id } = this.props.params;
-    const { fetchTravel } = this.props;
+    const { fetchTravel, params } = this.props;
+    const { id } = params;
+    
     fetchTravel(id)
   } 
 
-
   handleOpen = () => {
-    console.log("WORK")
     this.setState({open: true});
   };
 
@@ -75,11 +74,16 @@ class Travel extends React.Component {
     this.setState({open: false});
   };
 
+  addParentIdToPost = (arr) => {
+    return arr.map(item => ({
+      ...item, 
+      travelId: this.props.params.id
+    }))
+  }
+
   render() {
     const { activeTravel } = this.props.travels;
     const { loading, travel } = activeTravel;
-    const position = [this.state.lat, this.state.lng];
-    const position1 = [this.state.lat + .1, this.state.lng - .5];
 
     let coords = [];
     if(travel !== null) {
@@ -97,7 +101,7 @@ class Travel extends React.Component {
         onClick={this.handleClose}
       />
     ];
-
+ 
     return (
         <div>
             <ListWrapper>
@@ -109,7 +113,7 @@ class Travel extends React.Component {
                   tabAtitle={`Travels list`} 
                   tabA={
                     <PostsList 
-                      posts={travel !== null ? travel.posts : false
+                      posts={travel !== null ? this.addParentIdToPost(travel.posts) : false
                     }
                     />
                   }
@@ -118,7 +122,6 @@ class Travel extends React.Component {
                     <TravelMap 
                       coords={coords}
                       zoom={this.state.zoom}
-                      positionsLine={[position, position1]}
                     />
                   }
                 />   
@@ -130,7 +133,10 @@ class Travel extends React.Component {
                     open={this.state.open}
                     handleClose={this.handleClose}
                     inner={
-                      <PostForm />
+                      <PostForm 
+                      handleClose={this.handleClose} 
+                      createPostOn={this.props.createPost}
+                      />
                     }
                   />
               </div>
@@ -148,13 +154,19 @@ const mapStateToProps = () => {
   })
 }
 function mapDispatchToProps(dispatch) {
-  
   return {
     fetchTravel: (id) => {
       dispatch(fetchTravel(id))
           .payload.then(
               res => dispatch(fetchTravelSuccess(res)),
               err => dispatch(fetchTravelFailure(err))
+          )
+    },
+    createPost: (data, id) => {
+      dispatch(createPost(data, id))
+          .payload.then(
+              res => dispatch(createPostSuccess(res)),
+              err => dispatch(createPostFailure(err))
           )
     },
     dispatch,

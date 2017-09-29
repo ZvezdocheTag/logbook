@@ -37,6 +37,11 @@ activeTravel: {
   loading: false,
   posts: []
 }, 
+newPost: {
+  post:null, 
+  error: null, 
+  loading: false
+},
 };
 
 function TravelsReducer(state = initialState, action) {
@@ -145,7 +150,7 @@ function TravelsReducer(state = initialState, action) {
         post:action.payload, 
         error:null, 
         loading: false
-      }
+      },
     }
   case CREATE_POST_FAILURE:
     error = action.payload || 

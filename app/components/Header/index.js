@@ -16,9 +16,6 @@ class Header extends React.Component {
           <HeaderLink to="/logbook">
             logbook
           </HeaderLink>
-          <HeaderLink to="/travel/123">
-            travel
-          </HeaderLink>
         </NavBar>
       </div>
     );

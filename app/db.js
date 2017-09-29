@@ -59,13 +59,21 @@ const fakeDatabase = {
                     id: 'e9e9370d-00a2-40c6-8774-12c963df1304',
                     name: "Drink tekila",
                     description: "pomidaor",
-                    img: '',      
+                    img: '',
+                    coordinate: {
+                        lat: 36.976227,
+                        lng: 21.579895,
+                      }
                 },
                 {
                     id: 'e9e9370d-00a2-40c6-8774-12c963df1305',
                     name: "Drink tekila",
                     description: "pomidaor",
-                    img: '',      
+                    img: '',     
+                    coordinate: {
+                        lat: 36.615528,
+                        lng: 22.348938,
+                      }
                 },
             ]
         },

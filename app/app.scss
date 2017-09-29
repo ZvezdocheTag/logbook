@@ -52,3 +52,17 @@ img {
     text-align: center;
     padding-top: 30px;
 }
+
+.logbook-form__input {
+    border: 1px solid rgba(0, 0, 0, 0.3);;
+    border-radius: 3px;
+}
+.logbook-form__field--lng,
+.logbook-form__field--lat {
+    display: inline-block;
+    width: 50%;
+}
+.logbook-form__field--lng {
+    margin-right: 20px;
+    width: calc(50% - 20px);
+}

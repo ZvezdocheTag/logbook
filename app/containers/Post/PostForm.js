@@ -1,12 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router';
-import { 
-    addTravel, 
-    createTravel,
-    createTravelSuccess,
-    createTravelFailure
-} from '../Travel/logic/actions'
 import { connect } from 'react-redux';
 
 import { 
@@ -24,25 +18,36 @@ import TravelsList from '../Travel/TravelsList'
 import RaisedButton from 'material-ui/RaisedButton';
 
 
-
 class PostForm extends Component {
+
     addTravelFUnc(e) {
         e.preventDefault();
         const reader = new FileReader();
         const { 
             addTravel, 
             selectorsLogbook,
-            createTravel
+            createTravel,
+            travels,
+            handleClose
         } = this.props;
+
+
+        const { activeTravel } = travels
+
 
         reader.onloadend = () => {
             let data = {
                 name: this.name.value,
                 description: this.description.value,
                 img: reader.result,
-                posts: []
+                coordinate: {
+                    lat: this.lat.value,
+                    lng: this.lng.value,
+                  }
             }
-            // createTravel(data)
+
+            this.props.createPostOn(data, activeTravel.travel.id)
+            handleClose()
         }
 
         reader.readAsDataURL(this.img.files[0])
@@ -60,6 +65,24 @@ class PostForm extends Component {
                     name="travel-name" 
                     className="logbook-form__input"
                     ref={name => this.name = name}
+                 />
+            </div>
+            <div className="logbook-form__field logbook-form__field--lng">
+                <label htmlFor="travel-name" className="logbook-form__label">Longtitude</label>
+                <input 
+                    name="travel-name" 
+                    className="logbook-form__input"
+                    ref={lng => this.lng = lng}
+                    placeholder="52.50"
+                 />
+            </div>
+            <div className="logbook-form__field logbook-form__field--lat">
+                <label htmlFor="travel-name" className="logbook-form__label">Latitude</label>
+                <input 
+                    name="travel-name" 
+                    className="logbook-form__input"
+                    ref={lat => this.lat = lat}
+                    placeholder="50.50"
                  />
             </div>
             <div className="logbook-form__field logbook-form__field--description">
@@ -96,21 +119,8 @@ function mapStateToProps(state) {
     })
   }
   
-  function mapDispatchToProps(dispatch) {
-    return {
-      addTravel: (id) => dispatch(addTravel(id)),
-      createTravel: (id) => {
-        dispatch(createTravel(id))
-            .payload.then(
-                res => dispatch(createTravelSuccess(res)),
-                err => dispatch(createTravelFailure(err))
-            )
-      },
-      dispatch,
-    };
-  }
   
-  export default connect(mapStateToProps, mapDispatchToProps)(PostForm);
+  export default connect(mapStateToProps)(PostForm);
   
 
 

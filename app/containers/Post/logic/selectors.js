@@ -4,33 +4,21 @@
 
 import { createSelector } from 'reselect';
 
-const selectHome = (state) => {
-  return state.get('travel')
-};
+const selectHome = (state) => state
 
-const makeSelectUsername = () => createSelector(
+const makeSelectTravels = () => createSelector(
   selectHome,
-  (homeState) => homeState.get('currentAddedTravels')
+  (homeState) => homeState.get('travel')
 );
 
-const makeSelectLogbooks = () => {
-  
-return createSelector(
+const makeSelectActivePost = () => createSelector(
   selectHome,
-  (homeState) => {
-    return homeState.get('userTravels')
-  }
-)};
-
-const makeSelectLogbooksItem = () => createSelector(
-  selectHome,
-  (homeState) => homeState.getIn(['userTravels'])
+  (homeState) => homeState.get('activePost')
 );
 
 
 export {
   selectHome,
-  makeSelectUsername,
-  makeSelectLogbooks,
-  makeSelectLogbooksItem
+  makeSelectTravels,
+  makeSelectActivePost
 };

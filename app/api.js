@@ -32,54 +32,48 @@ export const getTravels = (id) => {
     })
 }
 
-export const getPost = (postID) => {
+export const getPost = (postID, travelId) => {
     return delay(500).then(() => {
         if(
             typeof postID === "undefined"
         ) {
             throw new Error(`Unknow user `)
         } else {
-            return fakeDatabase
-            .posts
-            .filter(item => item.id === postID)
-        }
-    })
-}
+           
+            let post = fakeDatabase
+                .travels.filter(item => item.id === travelId)[0]
+                .posts.filter(item => item.id === postID)[0]
 
-export const getPosts = (id) => {
-    return delay(500).then(() => {
-        if(typeof id === "undefined" || id === null) {
-            throw new Error(`Unknow user `)
-        } else if(id === "all") {
-            return fakeDatabase.posts
-        } else {
-            
-            return fakeDatabase
-                .posts
-                .filter(item => item.id === id)
+            return post
         }
     })
 }
 
 export const sendTravel = (data) => {
-    return delay(2500).then(() => {
+    return delay(500).then(() => {
         // if(typeof userID === "undefined" || userID === null) {
         if(false) {
             throw new Error(`Unknow user `)
         } else {
-            console.log("DATA PUSH")
+            
             fakeDatabase.travels.unshift({...data, id: v4()})
             return {...data, id: v4()}
         }
     })
 }
 
-export const sendPost = (data, userID) => {
+export const sendPost = (data, travelID) => {
     return delay(500).then(() => {
-        if(typeof userID === "undefined" || userID === null) {
+        if(typeof travelID === "undefined" || travelID === null) {
             throw new Error(`Unknow user `)
         } else {
-            return fakeDatabase.posts.push(data)
+            let getTravel = fakeDatabase
+            .travels
+            .filter(item => item.id === travelID)[0]
+
+            getTravel.posts.unshift(data);
+            console.log("DATA PUSH", data)
+            return data         
         }
     })
 }

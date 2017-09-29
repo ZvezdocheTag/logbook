@@ -11,7 +11,7 @@ const Post = (props) => (
     <CardMedia>
       <img src={props.item.img} alt="" />
     </CardMedia>
-    <Link to={`/post/${props.item.id}`}>
+    <Link to={`/post/${props.item.travelId}/${props.item.id}`}>
       <CardTitle title={props.item.name}/>
     </Link>
     <CardText>

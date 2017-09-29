@@ -9,6 +9,7 @@ import { LOCATION_CHANGE } from 'react-router-redux';
 
 import appReducer from 'containers/App/reducer';
 import TravelsReducer from 'containers/Travel/logic/reducer';
+import activePost from 'containers/Post/logic/reducer';
  
 /*
  * routeReducer
@@ -45,6 +46,7 @@ export default function createReducer(asyncReducers) {
     route: routeReducer,
     global: appReducer,
     travel: TravelsReducer,
+    activePost,
     ...asyncReducers,
   });
 }

@@ -9,10 +9,7 @@ import Helmet from 'react-helmet';
 import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-
 import { 
-  makeSelectLoading, 
-  makeSelectError,
   makeSelectTravels
  } from 'containers/App//selectors';
 import H2 from 'components/H2';
@@ -39,17 +36,9 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
     const { fetchTravels } = this.props;
     fetchTravels("all")
   }
-  componentDidMount() {
-
-
-    if (this.props.username && this.props.username.trim().length > 0) {
-      this.props.onSubmitForm();
-    }
-  }
-
+  
   render() {
     const { travels } = this.props;
-    console.log(this.props, "HOME")
     return (
       <article>
         <Helmet
@@ -107,9 +96,6 @@ export function mapDispatchToProps(dispatch) {
 const mapStateToProps = function() {
   // console.log(makeSelectRepos())
   return createStructuredSelector({
-    username: makeSelectUsername(),
-    loading: makeSelectLoading(),
-    error: makeSelectError(),
     travels: makeSelectTravels()
   })
 };

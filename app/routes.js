@@ -50,13 +50,13 @@ export default function createRoutes(store) {
       path: '/travel/:id',
       name: 'travel',
       getComponent(nextState, cb) {
-        console.log(nextState, cb, store.getState())
+        // console.log(nextState, cb, store.getState())
         import('containers/Travel')
           .then(loadModule(cb))
           .catch(errorLoading);
       },
     },{
-      path: '/post/:id',
+      path: '/post/:travelName/:id',
       name: 'post',
       getComponent(nextState, cb) {
         

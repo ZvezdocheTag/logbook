@@ -58,7 +58,7 @@ class LogbookForm extends Component {
                 <label htmlFor="travel-name" className="logbook-form__label">Title</label>
                 <input 
                     name="travel-name" 
-                    style={styl} 
+                    
                     className="logbook-form__input"
                     ref={name => this.name = name}
                  />
@@ -67,7 +67,7 @@ class LogbookForm extends Component {
                 <label htmlFor="travel-description" className="logbook-form__label">Description</label>
                 <textarea 
                 name="travel-description" 
-                style={styl} 
+                
                 className="logbook-form__input" 
                 ref={description => this.description = description}
                 />

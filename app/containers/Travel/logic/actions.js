@@ -19,22 +19,24 @@ import { v4 } from 'node-uuid'
 
 import { 
   getTravels,
-  sendTravel
+  sendTravel,
+  sendPost
 } from '../../../api'
   /**
    * Load the repositories, this action starts the request saga
    *
    * @return {object} An action object with a type of LOAD_REPOS
    */
-  export function createPost(props, tokenFromStorage) {
-    
+  export function createPost(post, travelId) {
+    console.log("CREATE POST")
       return {
         type: CREATE_POST,
-        payload: request
+        payload: sendPost(post, travelId)
       };
     }
     
     export function createPostSuccess(newPost) {
+      console.log("CREATE POST SF")
       return {
         type: CREATE_POST_SUCCESS,
         payload: newPost
